@@ -18,7 +18,7 @@ http://www.springframework.org/schema/websocket/spring-websocket.xsd">
     <!-- secure the application´s urls with the specific Role -->
     <http  auto-config="true"  create-session="always" use-expressions="true"  >
         <csrf disabled="true"/>
-        <intercept-url pattern="/login" access="permitAll"/>
+       <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/logout" access="permitAll"/>
         <intercept-url pattern="/accessdenied" access="permitAll"/>
         <intercept-url pattern="/menu" access="hasAnyRole('ROLE_ADMIN','ROLE_CHEF','ROLE_FLOOR_STAFF','ROLE_STAFF','ROLE_LINDA')"/>

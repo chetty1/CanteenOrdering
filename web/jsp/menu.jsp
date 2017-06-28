@@ -163,7 +163,7 @@
             <h3>
                 <a href="/standard" id="standardtext">Standard Menu</a>
             </h3>
-            <p>Mainly toasted sandwiches and snacks. Place order before 8.</p>
+            <p>Mainly toasted sandwiches and snacks. Place order before 10.30.</p>
         </div>
         <div class="col-md-4 portfolio-item">
             <a href="/takeaway" id="takeaway">

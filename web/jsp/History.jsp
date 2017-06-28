@@ -131,7 +131,7 @@
                 <th style="text-align: center">Item</th>
                 <th style="text-align: center">Price ea</th>
                 <th style="text-align: center">Quantity</th>
-                <th style="text-align: center">Balance Before</th>
+                <th style="text-align: center">Balance After</th>
             </tr>
             </thead>
 <tbody>
@@ -143,9 +143,9 @@
                 <th >${List.date}</th>
                 <td>${List.user.name}</td>
                 <td>${List.food.name}</td>
-                <td>${List.food.price}</td>
+                <td>R${List.food.price}</td>
                 <td>${List.quantity}</td>
-                <td>${List.user.balance}</td>
+                <td>R${List.user.balance}</td>
             </tr>
           </c:forEach>
     </c:if>

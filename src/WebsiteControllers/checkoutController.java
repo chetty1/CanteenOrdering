@@ -55,7 +55,9 @@ public class checkoutController {
 
     @RequestMapping(value = "/checkout")
     public ModelAndView checkout() {
-
+if (staff==null){
+   staff= repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+}
 
         Map<Tranaction, Integer> map = new HashMap<Tranaction, Integer>();
         total = 0;
