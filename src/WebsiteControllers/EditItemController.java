@@ -36,6 +36,7 @@ public class EditItemController {
     public ModelAndView view(@PathVariable String id) {
 
         item = repostory.findById(id);
+        System.out.print(item);
         ModelAndView view = new ModelAndView("editItem");
         view.addObject("name", item.getName());
         view.addObject("price", item.getPrice());
@@ -60,18 +61,27 @@ view.addObject("id",id);
         item.setType(sandwich);
         item.setDesc(desc);
         GridFSDBFile gridFsFile = template.findOne(new Query(Criteria.where("filename").is(item.getPicName())));
-        System.out.println(gridFsFile.getFilename());
 
         System.out.println(multipartFile.getOriginalFilename());
-        if(!multipartFile.getOriginalFilename().equals(gridFsFile.getFilename())&&!multipartFile.isEmpty()){
+
+        if (gridFsFile==null&&!multipartFile.isEmpty()){
+            DBObject metaData = new BasicDBObject();
+            metaData.put("name", multipartFile.getOriginalFilename());
+
+            template.store(multipartFile.getInputStream(), multipartFile.getOriginalFilename(), multipartFile.getContentType(), metaData);
+
+            item.setPicName(multipartFile.getOriginalFilename());
+        }
+        else if(!multipartFile.getOriginalFilename().equals(gridFsFile.getFilename())&&!multipartFile.isEmpty()){
             InputStream inputStream = multipartFile.getInputStream();
+
             template.delete(new Query(Criteria.where("metadata.name").is(item.getPicName())));
             DBObject metaData = new BasicDBObject();
             metaData.put("name", multipartFile.getOriginalFilename());
 
             template.store(inputStream, multipartFile.getOriginalFilename(), multipartFile.getContentType(), metaData);
 
-        item.setPicName(multipartFile.getOriginalFilename());
+            item.setPicName(multipartFile.getOriginalFilename());
         }
         repostory.save(item);
         System.out.println(item);

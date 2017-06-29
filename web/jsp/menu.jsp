@@ -32,13 +32,13 @@
 
 
         .crop {
-            height: 300px;
-            width: 400px;
+            height: 250px;
+            width: 250px;
             overflow: hidden;
         }
         .crop img {
             height: auto;
-            width: 400px;
+            width: 250px;
         }
     </style>
 
@@ -76,6 +76,7 @@
                 <li>
                     <a style="color: white" href="/history">History</a>
                 </li>
+
                 <sec:authorize access="hasRole('ROLE_CHEF') and isAuthenticated()">
                     <li>
                         <a style="color: white" href="/orders">Orders</a>
@@ -102,7 +103,9 @@
     </li>
 
 </sec:authorize>
-
+                <li>
+                    <a style="color: white" href="/logout">Logout</a>
+                </li>
 </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -118,14 +121,14 @@
         <div class="col-md-12">
             <div class="col-md-6 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="text-align: center">Standard Countdown</div>
+                    <div class="panel-heading" style="text-align: center">Standard Menu Countdown</div>
                     <div class="clock" style="margin:2em;"></div>
                     <div class="message"></div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="text-align: center">Tea & Lunch Countdown</div>
+                    <div class="panel-heading" style="text-align: center">Tea & Lunch Menu Countdown</div>
                     <div class="clock1" style="margin:2em;"></div>
                     <div class="message"></div>
                 </div>
@@ -138,16 +141,16 @@
 
     <!-- Projects Row -->
     <div class="row">
-        <div class="col-md-4 portfolio-item" >
+        <div class="col-md-3 portfolio-item" >
             <a href="/tea" id="tea">
-                <img class="crrop img-responsive" src="/assets/images%20for%20canteen/sandwich.png" alt="">
+                <img class="crop img-responsive" src="/assets/images%20for%20canteen/sandwich.png" alt="">
             </a>
             <h3>
                 <a href="/tea" id="teatext">Tea Menu</a>
             </h3>
             <p>Mainly toasted sandwiches and snacks. Place order before 8.</p>
         </div>
-        <div class="col-md-4 portfolio-item">
+        <div class="col-md-3 portfolio-item">
             <a href="/lunch" id="lunch">
                 <img class="crop img-responsive" src="/assets/images%20for%20canteen/macandcheese.jpg" alt="">
             </a>
@@ -156,18 +159,18 @@
             </h3>
             <p>Wide Variety of freshly prepared dishes. Place order before 8.30. </p>
         </div>
-        <div class="col-md-4 portfolio-item">
+        <div class="col-md-3 portfolio-item">
             <a href="/standard" id="standard">
-                <img class="crop img-responsive" src="/assets/images%20for%20canteen/sandwich.png" alt="">
+                <img class="crop img-responsive" src="/assets/images%20for%20canteen/cheese.jpg" alt="">
             </a>
             <h3>
                 <a href="/standard" id="standardtext">Standard Menu</a>
             </h3>
             <p>Mainly toasted sandwiches and snacks. Place order before 10.30.</p>
         </div>
-        <div class="col-md-4 portfolio-item">
+        <div class="col-md-3 portfolio-item">
             <a href="/takeaway" id="takeaway">
-                <img class="crop img-responsive" src="/assets/images%20for%20canteen/sandwich.png" alt="">
+                <img class="crop img-responsive" src="/assets/images%20for%20canteen/chips1.jpg" alt="">
             </a>
             <h3>
                 <a href="/takeaway" id="takeawaytext">Takeaway Menu</a>

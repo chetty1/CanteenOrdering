@@ -111,6 +111,7 @@ if (staff==null){
 
             checkout = true;
 transrepo.save(quantity);
+            orders.clear();
             orders.addAll(quantity);
             quantity.clear();
             return true;

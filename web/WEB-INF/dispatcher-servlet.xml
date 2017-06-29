@@ -3,7 +3,6 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:task="http://www.springframework.org/schema/task"
        xmlns:mongo="http://www.springframework.org/schema/data/mongo"
 
        xmlns:security="http://www.springframework.org/schema/security"
@@ -15,16 +14,12 @@
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/data/mongo
         http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
-        http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security-4.2.xsd
+
 ">
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="WebsiteControllers"/>
-    <bean id="expressionHandler" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"/>
-    <security:global-method-security pre-post-annotations="enabled">
-        <security:expression-handler ref="expressionHandler"/>
-    </security:global-method-security>
+
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/jsp/"/>
@@ -32,26 +27,24 @@
     </bean>
     <mvc:resources mapping="/assets/**" location="/assets/"/>
 
-   <!-- <mongo:mongo host="192.168.0.110" port="27017"/>-->
+    <!-- <mongo:mongo host="192.168.0.110" port="27017"/>-->
 
 
-
-    <mongo:db-factory id="mongoDbFactory" dbname="CanteenPics" />
-    <mongo:mapping-converter id="converter" />
+    <mongo:db-factory id="mongoDbFactory" dbname="CanteenPics"/>
+    <mongo:mapping-converter id="converter"/>
 
     <bean name="gridFsTemplate"
           class="org.springframework.data.mongodb.gridfs.GridFsTemplate">
-        <constructor-arg ref="mongoDbFactory" />
-        <constructor-arg ref="converter" />
+        <constructor-arg ref="mongoDbFactory"/>
+        <constructor-arg ref="converter"/>
     </bean>
 
-   <mongo:mongo host="192.168.0.130" port="27017"/>
+    <mongo:mongo host="192.168.0.130" port="27017"/>
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5000000"/>
 
     </bean>
-
 
     <mongo:repositories base-package="Repositories">
 
@@ -62,5 +55,19 @@
 
     </bean>
 
+    <bean id="email" init-method="complileCsv" class="Services.Email"></bean>
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com"/>
+        <property name="port" value="587"/>
+        <property name="username" value="npscanteen123@gmail.com"/>
+        <property name="password" value="nps12345"/>
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
 
 </beans>

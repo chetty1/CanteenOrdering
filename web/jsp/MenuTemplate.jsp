@@ -212,6 +212,12 @@
                     <a style="color: white" href="/history">History</a>
                 </li>
                 <li>
+                    <a style="color: white" href="/${time1}">${time1}</a>
+                </li>
+                <li>
+                    <a style="color: white" href="/${time2}">${time2}</a>
+                </li>
+                <li>
                     <a style="color: white" href="/checkout">Checkout</a>
                 </li>
                 <sec:authorize access="hasRole('ROLE_CHEF') and isAuthenticated()">

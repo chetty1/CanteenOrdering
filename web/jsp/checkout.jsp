@@ -58,7 +58,7 @@
                     <a style="color: white" data-toggle="modal" href="#balance">View Balance</a>
                 </li>
                 <li>
-                    <a style="color: white"  href="/login">Logout</a>
+                    <a style="color: white"  href="/logout">Logout</a>
                 </li>
 
             </ul>
@@ -91,14 +91,14 @@
 
     <c:forEach items="${transactionList}" var="transLists">
                     <div class="row">
-                        <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
+                        <div class="col-xs-2"><img class="img-responsive" src="${transLists.food.picName}">
                         </div>
                         <div class="col-xs-4">
                             <h4 class="product-name"><strong>${transLists.food.name}</strong></h4><h4><small>Product description</small></h4>
                         </div>
                         <div class="col-xs-6">
                             <div class="col-xs-6 text-right">
-                                <h6><strong>${transLists.food.price} <span class="text-muted">x</span></strong></h6>
+                                <h6><strong>R${transLists.food.price} <span class="text-muted">x</span></strong></h6>
                             </div>
                             <div class="col-xs-4">
                                 <input type="text" class="form-control input-sm" value="${transLists.quantity}" disabled>
@@ -130,18 +130,20 @@
                             </button>
     </sec:authorize>
 
-<sec:authorize access="hasRole('ROLE_FLOOR_STAFF') and isAuthenticated()">
-    <button type="button" onclick="onCheckout()" class="btn btn-success btn-block" disabled>
-        USE CARD TO CHECKOUT
-    </button>
+                            <sec:authorize access="hasRole('ROLE_FLOOR_STAFF') and isAuthenticated()">
 
-</sec:authorize>
+                                <h5 style="font-weight: 700">
+                                    SWIPE CARD
+                                </h5>
+
+                            </sec:authorize>
 </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -199,6 +201,8 @@
         </div>
 
     </div>
+
+
 </div>
 </body>
 
@@ -206,7 +210,7 @@
 <script src="<spring:url value="/assets/js/jquery.js"/>"></script>
 <script>
     function logout(){
-        window.location="/login";
+        window.location="/logout?logout";
 
     }
     </script>
@@ -267,7 +271,7 @@
 
         var client;
 
-        client = new Paho.MQTT.Client("192.168.0.134", Number(8900),  Math.round(Math.random()*1000).toString());
+        client = new Paho.MQTT.Client("localhost", Number(8900),  Math.round(Math.random()*1000).toString());
         // set callback handlers
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;

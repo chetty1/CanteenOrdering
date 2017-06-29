@@ -38,18 +38,13 @@ http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 
         <form-login login-page="/login"  authentication-failure-url="/accessdenied" authentication-success-handler-ref="successHandler"/>
-        <logout logout-success-url="/login"/>
+        <logout logout-url="/logout" logout-success-url="/login?logout"/>
+
     </http>
 
     <beans:bean id="successHandler" class="Security.successHandler"/>
 
-   <!-- <websocket-message-broker same-origin-disabled="true">
 
-    </websocket-message-broker>-->
-
-   <!-- <beans:bean id="websockets" class="Security.websocketConfig"/>-->
- <!--     Define the application authentication manager to use a custom Class (mongoUserDetailsService)
-         to validate the user access, and the password enconding-->
     <authentication-manager alias="authenticationManager">
 
         <authentication-provider user-service-ref="mongoUserDetailsService">

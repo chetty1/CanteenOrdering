@@ -43,6 +43,10 @@ public Staff(){
                 '}';
     }
 
+    public String getBalancestring(){
+        return"username,"+username+",balance,"+balance;
+    }
+
     public int getBalance() {
         return balance;
     }

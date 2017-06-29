@@ -80,7 +80,7 @@
                     <a style="color: white" href="/menu">Menu</a>
                 </li>
                 <li>
-                    <a style="color: white" href="/login">Logout</a>
+                    <a style="color: white" href="/logout">Logout</a>
                 </li>
 
 
