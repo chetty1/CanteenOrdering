@@ -33,6 +33,19 @@
         margin-top: 80px;
         margin-left: 25%;
     }
+    @media (max-width: 450px)
+     {
+        body {
+            margin-left: 0%;
+        }
+        .text-right{
+text-align: center;
+        }
+        img{
+            width: 0%;
+            height: 0%;
+        }
+    }
 </style>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top " style="background-color:#000b54" role="navigation">
@@ -69,15 +82,15 @@
 </nav>
 <div class="container">
     <div class="row">
-        <div class="col-xs-8">
+        <div class="col-md-8">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <div class="panel-title">
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-md-6">
                                 <h5><span class="glyphicon glyphicon-shopping-cart"></span> Shopping Cart</h5>
                             </div>
-                            <div class="col-xs-6">
+                            <div class="col-md-6">
                                 <a type="button" class="btn btn-primary btn-sm btn-block" href="/menu">
                                     <span class="glyphicon glyphicon-share-alt"></span> Continue shopping
                                 </a>
@@ -91,19 +104,19 @@
 
     <c:forEach items="${transactionList}" var="transLists">
                     <div class="row">
-                        <div class="col-xs-2"><img class="img-responsive" src="${transLists.food.picName}">
+                        <div class="col-md-2"><img class="img-responsive" src="${transLists.food.picName}">
                         </div>
-                        <div class="col-xs-4">
+                        <div class="col-md-4">
                             <h4 class="product-name"><strong>${transLists.food.name}</strong></h4><h4><small>Product description</small></h4>
                         </div>
-                        <div class="col-xs-6">
+                        <div class="col-md-6">
                             <div class="col-xs-6 text-right">
                                 <h6><strong>R${transLists.food.price} <span class="text-muted">x</span></strong></h6>
                             </div>
                             <div class="col-xs-4">
                                 <input type="text" class="form-control input-sm" value="${transLists.quantity}" disabled>
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-md-2">
                                 <button type="button" href="/checkout" id="delete${transLists.id}" onclick="onDelete(this.id)" class="btn btn-link btn-xs">
                                     <span class="glyphicon glyphicon-trash"> </span>
                                 </button>
@@ -111,6 +124,7 @@
                         </div>
                     </div>
                     <hr>
+
         </c:forEach>
     </c:if>
 
@@ -118,10 +132,10 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row text-center">
-                        <div class="col-xs-9">
+                        <div class="col-md-9">
                             <h4 class="text-right">Total <strong>R${total}</strong></h4>
                         </div>
-                        <div class="col-xs-3">
+                        <div class="col-md-3">
 
 <sec:authorize access="hasRole('ROLE_STAFF') and isAuthenticated()">
 
@@ -217,7 +231,12 @@
 <script>
     function onCheckout() {
 
+
         $.ajax({
+
+
+
+
             type: "post",
             url: "/clickcheckout",
             datatype:'json',
@@ -232,23 +251,32 @@
                     $("#myModal").modal();
                 }
                 else{
-                    window.location="/login";
+                    alert("Order Successful click ok");
+                    window.location="/login?logout"
+
                 }
 
             },
             error: function () {
                 alert('Error while request..');
+
             }
         });
+
+
+
+
+
     }
 </script>
+
 <script>
     function onDelete(id){
 
         $.ajax({
             type: "post",
-            url: "clickdelete",
-            datatype:'json',
+            url: "/clickdelete",
+
             data: {
                 Id: id,
 
@@ -256,50 +284,61 @@
 
             success: function (response) {
                 console.log(response);
+                window.location="/checkout"
+
             },
             error: function () {
-                alert('Error while request..');
+                window.location="/checkout"
+
+                //alert('Try Again');
             }
         });
-        window.location.reload(true);
+
+
+
     }
 </script>
 
 <script>
     $(document).ready(function () {
 
+        try {
+            var client;
 
-        var client;
+            client = new Paho.MQTT.Client("localhost", Number(8900), Math.round(Math.random() * 1000).toString());
+            // set callback handlers
+            client.onConnectionLost = onConnectionLost;
+            client.onMessageArrived = onMessageArrived;
 
-        client = new Paho.MQTT.Client("localhost", Number(8900),  Math.round(Math.random()*1000).toString());
-        // set callback handlers
-        client.onConnectionLost = onConnectionLost;
-        client.onMessageArrived = onMessageArrived;
-
-        // connect the client
-        client.connect({onSuccess: onConnect});
+            // connect the client
+            client.connect({onSuccess: onConnect});
 
 
-        // called when the client connects
-        function onConnect() {
-            // Once a connection has been made, make a subscription and send a message.
-            console.log("onConnect");
-            client.subscribe("rfid");
+            // called when the client connects
+            function onConnect() {
+                // Once a connection has been made, make a subscription and send a message.
+                console.log("onConnect");
+                client.subscribe("rfid");
 
-        }
+            }
 
-        // called when the client loses its connection
-        function onConnectionLost(responseObject) {
-            if (responseObject.errorCode !== 0) {
-                console.log("onConnectionLost:" + responseObject.errorMessage);
+            // called when the client loses its connection
+            function onConnectionLost(responseObject) {
+                if (responseObject.errorCode !== 0) {
+                    console.log("onConnectionLost:" + responseObject.errorMessage);
+                }
+            }
+
+            // called when a message arrives
+            function onMessageArrived(message) {
+                console.log("onMessageArrived:" + message.payloadString);
+                onCheckout();
             }
         }
+        catch (err){
 
-        // called when a message arrives
-        function onMessageArrived(message) {
-            console.log("onMessageArrived:" + message.payloadString);
-           onCheckout();
         }
+
     });
 
 </script>

@@ -21,6 +21,7 @@ public class Tranaction {
     private String date;
     private String time;
     private int quantity;
+    private boolean isOrded;
 
 
     @Override
@@ -32,19 +33,20 @@ public class Tranaction {
                 (this.getQuantity()==tran.getQuantity())&&
                 (this.getUser().getUsername().equals(tran.getUser().getUsername()))&&
                 (this.getDate().equals(tran.getDate()))&&
-                (this.getTime().equals(tran.getTime())) ;
+                (this.getTime().equals(tran.getTime())&&
+                        (this.isOrded==tran.isOrded)) ;
     }
 
     @Override
     public int hashCode(){
-        return Objects.hash(food.getName(),user.getUsername(),date,time,quantity);
+        return Objects.hash(food.getName(),user.getUsername(),date,time,quantity,isOrded);
     }
 
     public Tranaction(){
 
     }
 
-    public Tranaction(String id, Item food, Staff user, String time, int quantity) {
+    public Tranaction(String id, Item food, Staff user, String time, int quantity,boolean isOrded) {
 
        SimpleDateFormat date = new SimpleDateFormat("dd/MM/YYYY");
         this.id = id;
@@ -53,6 +55,7 @@ public class Tranaction {
         this.date = date.format(new Date());
         this.time = time;
         this.quantity = quantity;
+        this.isOrded = isOrded;
     }
 
     public String getDate() {
@@ -65,10 +68,19 @@ public class Tranaction {
                 "id='" + id + '\'' +
                 ", food=" + food +
                 ", user=" + user +
-                ", date=" + date +
+                ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", quantity=" + quantity +
+                ", isOrded=" + isOrded +
                 '}';
+    }
+
+    public boolean isOrded() {
+        return isOrded;
+    }
+
+    public void setOrded(boolean orded) {
+        isOrded = orded;
     }
 
     public void setDate(String date) {

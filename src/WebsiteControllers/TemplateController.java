@@ -133,7 +133,7 @@ public class TemplateController {
     public ModelAndView takeawayview() {
         ModelAndView view = new ModelAndView("MenuTemplate");
         ArrayList<Item> item = new ArrayList<>();
-        item.addAll(repo.findAllByTimeAndIsTodayIsTrue("takeaway"));
+        item.addAll(repo.findAllByTimeAndIsTodayIsTrue("lunch"));
 
 
         view.addObject("foodlist", item);

@@ -13,11 +13,13 @@ import java.util.List;
  */
 public interface transactionRepository extends MongoRepository<Tranaction,String> {
 
-Tranaction findByUser(Staff user);
+Tranaction findById(String Id);
 
     @Query("{ 'user.username' : ?0 }")
     List<Tranaction> findAllByUser(String name);
 
+    //@Query("{'user.username':?0,'date':?1}")
+List<Tranaction> findAllByUserAndDate(Staff user,String date);
 
 
     List<Tranaction>  findAllByDate(String date);

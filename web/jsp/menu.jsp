@@ -227,7 +227,7 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username" />" == "chetty") {
+                    if ("<sec:authentication property="principal.username"/>" == "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Russell&#32;Gwynn") {
 
 
                     }
@@ -248,7 +248,7 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username" />" != "chetty") {
+                    if ("<sec:authentication property="principal.username"/>" != "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Russell&#32;Gwynn") {
 
                         document.getElementById("tea").className = "disabled";
                         document.getElementById("lunch").className = "disabled";
@@ -270,8 +270,8 @@
 
 
 
-            clock2.setTime(Number(document.getElementById("timeTea").value));
-            clock.setTime(Number(document.getElementById("timeLunch").value));
+            clock2.setTime(Number(document.getElementById("timeTea").value)-1);
+            clock.setTime(Number(document.getElementById("timeLunch").value)-1);
 
         clock2.setCountdown(true);
         clock2.start();

@@ -2,11 +2,17 @@ package WebsiteControllers;
 
 import Model.Tranaction;
 import Repositories.transactionRepository;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,6 +32,7 @@ public class ordersController {
 
 
 
+
     @RequestMapping(value = "/orders")
     public ModelAndView Orders() throws ParseException {
         List<Tranaction> teaList = new ArrayList<>();
@@ -36,12 +43,12 @@ public class ordersController {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
         List<Tranaction> repolist = repo.findAllByDate(format.format(new Date()));
         for (Tranaction tran : repolist) {
-            if (tran.getTime().equals("tea")) {
+            if (tran.getTime().equals("tea")&&tran.isOrded()) {
                 teaList.add(tran);
-            } else if (tran.getTime().equals("lunch")) {
+            } else if (tran.getTime().equals("lunch")&&tran.isOrded()) {
                 lunchList.add(tran);
             }
-            else if (tran.getTime().equals("takeaway")){
+            else if (tran.getTime().equals("takeaway")&&tran.isOrded()){
                 takeawayList.add(tran);
             }
         }
@@ -74,6 +81,8 @@ public class ordersController {
 
         return view;
     }
+
+
 
 
 }

@@ -7,10 +7,7 @@ import Repositories.itemRepostory;
 import Repositories.transactionRepository;
 import Repositories.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +30,7 @@ import java.util.Map;
  * Created by chett_000 on 2017/05/10.
  */
 @Controller
+
 public class checkoutController {
 
     @Autowired
@@ -45,26 +43,33 @@ public class checkoutController {
     transactionRepository transrepo;
 
 
-    ArrayList<Tranaction> tranactions = new ArrayList<>();
-    ArrayList<Tranaction> quantity = new ArrayList<>();
-    ArrayList<Tranaction> orders ;
+    ArrayList<Tranaction> quantity;
+    ArrayList<Tranaction> orders;
 
     int total;
-    Staff staff;
     boolean checkout = false;
 
     @RequestMapping(value = "/checkout")
-    public ModelAndView checkout() {
-if (staff==null){
-   staff= repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-}
+    public ModelAndView checkout(HttpServletRequest request) {
+        quantity = new ArrayList<>();
+
+        Staff staff1 = repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
 
         Map<Tranaction, Integer> map = new HashMap<Tranaction, Integer>();
         total = 0;
-        //quantity.clear();
-        for (Tranaction temp : tranactions) {
+
+
+        for (Tranaction temp : transrepo.findAllByUserAndDate(staff1, new SimpleDateFormat("dd/MM/YYYY").format(new Date()))) {
             Integer count = map.get(temp);
-            map.put(temp, (count == null) ? 1 : count + 1);
+            if (!temp.isOrded()) {
+
+                map.put(temp, (count == null) ? 1 : count + 1);
+            }
+
+            if (count!=null){
+                transrepo.delete(temp.getId());
+            }
         }
 
         for (Map.Entry<Tranaction, Integer> entry : map.entrySet()) {
@@ -72,9 +77,9 @@ if (staff==null){
             Tranaction tran = entry.getKey();
 
             tran.setQuantity(entry.getValue());
+            transrepo.save(tran);
             quantity.add(tran);
         }
-        tranactions.clear();
         for (Tranaction tranaction : quantity) {
             total = total + (Integer.parseInt(tranaction.getFood().getPrice()) * tranaction.getQuantity());
 
@@ -83,41 +88,111 @@ if (staff==null){
         ModelAndView view = new ModelAndView("checkout");
         view.addObject("transactionList", quantity);
         view.addObject("total", total);
-        view.addObject("balance",staff.getBalance());
+        view.addObject("balance", staff1.getBalance());
 
         return view;
     }
 
+
     @RequestMapping(value = "/clickdelete", method = RequestMethod.POST)
-    public void delete(HttpServletRequest request, HttpServletResponse response) {
+    public @ResponseBody boolean delete(HttpServletRequest request, HttpServletResponse response) {
         String raw = request.getParameter("Id");
         String id = raw.substring(6);
-        for (int i = 0; i < quantity.size(); i++) {
-            if (id.equals(quantity.get(i).getId())) {
-                quantity.remove(i);
-            }
-        }
+
+        Tranaction tran =transrepo.findById(id);
+        System.out.println(tran);
+
+       transrepo.delete(tran.getId());
+        return true;
     }
+
 
     @RequestMapping(value = "/clickcheckout", method = RequestMethod.POST)
     public
     @ResponseBody
     boolean clickcheckout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Staff staff = repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         int before = staff.getBalance();
-      orders  = new ArrayList<>();
-        if ((before - total) > 0) {
+        orders = new ArrayList<>();
+        int tot = 0;
+        ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/YYYY").format(new Date()));
+        for (int i = 0; i < list.size(); i++) {
+            Tranaction tran = list.get(i);
+
+            if (tran.isOrded()) {
+                list.remove(i);
+            }
+        }
+
+
+        for (int j = 0; j < list.size(); j++) {
+            tot = tot + Integer.parseInt(list.get(j).getFood().getPrice());
+        }
+        if ((before - tot) > 0) {
+
+            staff.setBalance(before - tot);
+
+            repository.save(staff);
+
+
+
+            for (int i = 0; i < list.size(); i++) {
+                Tranaction tran = list.get(i);
+                //tran.setUser(staff);
+                tran.setOrded(true);
+
+            }
+            transrepo.save(list);
+
+            System.out.println(list);
+            orders.clear();
+            orders.addAll(list);
+            quantity.clear();
+            list.clear();
+            checkout = true;
+
+            return true;
+        } else {
+            quantity.clear();
+            orders.clear();
+            list.clear();
+            return false;
+        }
+
+       /* if ((before - total) > 0) {
+
+            for (Tranaction temp : transrepo.findAllByUserAndDate(staff,new SimpleDateFormat("dd/MM/YYYY").format(new Date()))) {
+
+                if(!temp.isOrded()) {
+                    map.put(temp, (count == null) ? 1 : count + 1);
+                }
+            }
             staff.setBalance(before - total);
+
             repository.save(staff);
 
             checkout = true;
-transrepo.save(quantity);
+
+
+            for (int i=0;i<quantity.size();i++) {
+                Tranaction tran = quantity.get(i);
+                tran.setUser(staff);
+                tran.setOrded(true);
+
+            }
+            transrepo.save(quantity);
+
+            System.out.println(quantity);
             orders.clear();
             orders.addAll(quantity);
             quantity.clear();
             return true;
         } else {
+            quantity.clear();
+            orders.clear();
+
             return false;
-        }
+        }*/
 
     }
 
@@ -126,36 +201,35 @@ transrepo.save(quantity);
     public void ajax(HttpServletRequest request, HttpServletResponse response, @PathVariable String time) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         Item item;
-        if(request.getParameter("Id").equals("Large Chips")){
-         item  = repo.findByName("Large Chips");
+        if (request.getParameter("Id").equals("Large Chips")) {
+            item = repo.findByName("Large Chips");
 
-        }
-        else if  (request.getParameter("Id").equals("Small Chips")){
-             item = repo.findByName("Small Chips");
+        } else if (request.getParameter("Id").equals("Small Chips")) {
+            item = repo.findByName("Small Chips");
 
-        }
-        else
-        {
+        } else {
             item = repo.findById(request.getParameter("Id"));
         }
 
-        staff = repository.findByUsername(username);
+        Staff staff = repository.findByUsername(username);
         SimpleDateFormat date = new SimpleDateFormat("HHss");
-        Tranaction trans = new Tranaction(staff.getId() + date.format(new Date()), item, staff, time, 1);
-        tranactions.add(trans);
+        Tranaction trans = new Tranaction(staff.getId() + date.format(new Date()), item, staff, time, 1, false);
 
+        transrepo.save(trans);
     }
 
     @RequestMapping(value = "/liveorders")
     public SseEmitter orders() throws IOException {
         SseEmitter emitter = new SseEmitter();
+
+
         if (checkout) {
             emitter.send(orders);
             checkout = false;
+
             emitter.complete();
 
-        }
-        else {
+        } else {
             emitter.complete();
         }
 

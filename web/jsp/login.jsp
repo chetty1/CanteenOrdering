@@ -39,14 +39,14 @@
         <div class="col-md-12">
             <div class="col-md-6 ">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="text-align: center">Standard countdown</div>
+                    <div class="panel-heading" style="text-align: center">Standard Menu countdown</div>
                     <div class="clock" style="margin:2em;"></div>
                     <div class="message"></div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                    <div class="panel-heading" style="text-align: center">Tea & Lunch countdown</div>
+                    <div class="panel-heading" style="text-align: center">Tea & Lunch Menu countdown</div>
                     <div class="clock1" style="margin:2em;"></div>
                     <div class="message"></div>
                 </div>

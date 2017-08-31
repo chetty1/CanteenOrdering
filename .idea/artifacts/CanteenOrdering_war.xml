@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="CanteenOrdering:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/CanteenOrdering_war</output-path>
+    <root id="archive" name="CanteenOrdering_war.war">
+      <element id="artifact" artifact-name="CanteenOrdering:war exploded" />
+    </root>
+  </artifact>
+</component>

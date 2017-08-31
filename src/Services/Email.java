@@ -50,7 +50,6 @@ public class Email {
             mail.setFrom("npscanteen123@gmail.com");
             mail.setTo("npscanteen123@gmail.com");
             mail.setSubject("Backup");
-            mail.setText("yolo");
 
             MimeMessage mesg = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mesg, true);

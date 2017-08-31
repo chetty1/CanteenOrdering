@@ -56,11 +56,12 @@
 <div class="container">
 
       <div class="row">
-    <div class="col-lg-12">
+          <div class="col-lg-12">
+    <div class="col-lg-4">
         <h1 class="page-header">
             <h3>Tea Orders</h3>
         </h1>
-    </div>
+
 
     <table class="table table-bordered" style="text-align: center" id="teaTable">
         <thead>
@@ -87,14 +88,13 @@
 
         </tbody>
     </table>
-    </div>
+</div>
 
-    <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-4">
             <h1 class="page-header">
                 <h3>Lunch Orders</h3>
             </h1>
-        </div>
+
 
         <table class="table table-bordered" style="text-align: center" id="lunchTable">
             <thead >
@@ -121,13 +121,12 @@
     </c:if>
             </tbody>
         </table>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
+</div>
+        <div class="col-lg-4">
             <h1 class="page-header">
                 <h3>Takeaway Orders</h3>
             </h1>
-        </div>
+
 
         <table class="table table-bordered" style="text-align: center" id="takeawayTable">
             <thead >
@@ -154,12 +153,13 @@
             </c:if>
             </tbody>
         </table>
+            </div>
     </div>
-
+</div>
 
 </div>
 
-
+</div>
 </body>
 <script src="<spring:url value="/assets/js/jquery.js"/>"></script>
 <script>
@@ -192,6 +192,8 @@
 <script>
     var source = new EventSource("/liveorders");
     source.onmessage = function(event) {
+
+
     var data= JSON.parse(event.data); //$.parseJSON(event.data);
 console.log(data);
         $.each(data, function(i, item) {
