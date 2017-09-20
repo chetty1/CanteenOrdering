@@ -131,7 +131,7 @@
                 <th style="text-align: center">Item</th>
                 <th style="text-align: center">Price ea</th>
                 <th style="text-align: center">Quantity</th>
-                <th style="text-align: center">Balance After</th>
+                <th style="text-align: center">Balance Before</th>
             </tr>
             </thead>
 <tbody>

@@ -42,7 +42,8 @@ public class ordersController {
         ModelAndView view = new ModelAndView("Orders");
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
         List<Tranaction> repolist = repo.findAllByDate(format.format(new Date()));
-        for (Tranaction tran : repolist) {
+        for (int i=0;i<repolist.size();i++) {
+            Tranaction tran = repolist.get(i);
             if (tran.getTime().equals("tea")&&tran.isOrded()) {
                 teaList.add(tran);
             } else if (tran.getTime().equals("lunch")&&tran.isOrded()) {
@@ -78,6 +79,39 @@ public class ordersController {
         view.addObject("takeawayList",takeawayList);
         view.addObject("teaList", teaList);
         view.addObject("lunchList", lunchList);
+
+        return view;
+    }
+
+    @RequestMapping(value = "/takeawayOrders")
+    public ModelAndView Takeaway() throws ParseException {
+
+        List<Tranaction> takeawayList = new ArrayList<>();
+        ModelAndView view = new ModelAndView("Takeaway");
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
+        List<Tranaction> repolist = repo.findAllByDate(format.format(new Date()));
+        for (int i=0;i<repolist.size();i++) {
+         Tranaction tran = repolist.get(i);
+             if (tran.getTime().equals("takeaway")&&tran.isOrded()){
+                takeawayList.add(tran);
+            }
+        }
+
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+
+        Date takeaway = parser.parse("16:30");
+
+
+
+        Date userDate = parser.parse(parser.format(new Date()));
+
+        if (userDate.after(takeaway)){
+            takeawayList.clear();
+        }
+
+
+        view.addObject("takeawayList",takeawayList);
+
 
         return view;
     }

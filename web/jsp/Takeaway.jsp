@@ -42,10 +42,10 @@
                 <li>
                     <a style="color: white" href="/viewmenu">View Menu</a>
                 </li>
-                <li>
-                    <a style="color: white" href="/takeawayOrders">Takeaway</a>
-                </li>
 
+                <li>
+                    <a style="color: white" href="/orders">Orders</a>
+                </li>
             </ul>
 
 
@@ -59,74 +59,10 @@
 </nav>
 <div class="container">
 
-      <div class="row">
-          <div class="col-lg-12">
-    <div class="col-lg-6">
-        <h1 class="page-header">
-            <h3>Tea Orders</h3>
-        </h1>
+    <div class="row">
+        <div class="col-lg-12">
 
-
-    <table class="table table-bordered" style="text-align: center" id="teaTable">
-        <thead>
-        <tr>
-            <th style="text-align: center">Name</th>
-            <th style="text-align: center">Order</th>
-            <th style="text-align: center">Quantity</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        <c:if test="${not empty teaList}">
-
-            <c:forEach items="${teaList}" var="teaLists">
-
-                <tr>
-                    <td>${teaLists.user.name}</td>
-                    <td>${teaLists.food.name}</td>
-                    <td>${teaLists.quantity}</td>
-                </tr>
-
-            </c:forEach>
-        </c:if>
-
-        </tbody>
-    </table>
-</div>
-
-        <div class="col-lg-6">
-            <h1 class="page-header">
-                <h3>Lunch Orders</h3>
-            </h1>
-
-
-        <table class="table table-bordered" style="text-align: center" id="lunchTable">
-            <thead >
-            <tr>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Order</th>
-                <th style="text-align: center">Quantity</th>
-            </tr>
-            </thead>
-            <tbody>
-
-
-<c:if test="${not empty lunchList}">
-
-    <c:forEach items="${lunchList}" var="lunchLists">
-
-        <tr>
-                <td>${lunchLists.user.name}</td>
-                <td>${lunchLists.food.name}</td>
-                <td>${lunchLists.quantity}</td>
-            </tr>
-
-</c:forEach>
-    </c:if>
-            </tbody>
-        </table>
-</div>
-       <!-- <div class="col-lg-4">
+             <div class="col-lg-6">
             <h1 class="page-header">
                 <h3>Takeaway Orders</h3>
             </h1>
@@ -160,10 +96,9 @@
             </div>
     </div>
 </div>
--->
-</div>
 
-</div>
+        </div>
+
     </div>
 </body>
 <script src="<spring:url value="/assets/js/jquery.js"/>"></script>
@@ -175,15 +110,8 @@
     function oneSecondFunction() {
         var d = new Date(); // for now
         // => 9
-        if ((d.getHours()=="10")&&(d.getMinutes()=="15") && (d.getSeconds()=="00")){
-            $("#teaTable tbody tr").remove();
 
-        }
-        else if((d.getHours()=="13")&&(d.getMinutes()=="30") && (d.getSeconds()=="00")){
-            $("#lunchTable tbody tr").remove();
-
-        }
-        else if((d.getHours()=="16")&&(d.getMinutes()=="30") && (d.getSeconds()=="00")){
+         if((d.getHours()=="16")&&(d.getMinutes()=="30") && (d.getSeconds()=="00")){
             $("#takeawayTable tbody tr").remove();
 
         }
@@ -199,46 +127,11 @@
     source.onmessage = function(event) {
 
 
-    var data= JSON.parse(event.data); //$.parseJSON(event.data);
-console.log(data);
+        var data= JSON.parse(event.data); //$.parseJSON(event.data);
+        console.log(data);
         $.each(data, function(i, item) {
-            if(item.time=="lunch"){
-                var table = document.getElementById("lunchTable");
-                var row = table.insertRow(-1);
 
-// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-                var cell2 = row.insertCell(0);
-                var cell3 = row.insertCell(1);
-                var cell4 = row.insertCell(2);
-
-
-
-// Add some text to the new cells:
-
-                cell2.innerHTML = data[i].user.name;
-                cell3.innerHTML= data[i].food.name;
-                cell4.innerHTML= data[i].quantity;
-
-            }
-            else if (item.time=="tea"){
-                var teatable = document.getElementById("teaTable");
-                var tearow = teatable.insertRow(-1);
-
-// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-                var teacell2 = tearow.insertCell(0);
-                var teacell3 = tearow.insertCell(1);
-                var teacell4 = tearow.insertCell(2);
-
-
-
-// Add some text to the new cells:
-
-                teacell2.innerHTML = data[i].user.name;
-                teacell3.innerHTML= data[i].food.name;
-                teacell4.innerHTML= data[i].quantity;
-
-            }
-            else if (item.time=="takeaway") {
+             if (item.time=="takeaway") {
                 var ttable = document.getElementById("takeawayTable");
                 var trow = ttable.insertRow(-1);
 
@@ -255,7 +148,7 @@ console.log(data);
                 tcell3.innerHTML= data[i].food.name;
                 tcell4.innerHTML= data[i].quantity;
             }
-            });
+        });
 
 
 // Create an empty <tr> element and add it to the 1st position of the table:

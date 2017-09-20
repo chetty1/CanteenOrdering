@@ -211,12 +211,7 @@
                 <li>
                     <a style="color: white" href="/history">History</a>
                 </li>
-                <li>
-                    <a style="color: white" href="/${time1}">${time1}</a>
-                </li>
-                <li>
-                    <a style="color: white" href="/${time2}">${time2}</a>
-                </li>
+
                 <li>
                     <a style="color: white" href="/checkout">Checkout</a>
                 </li>
@@ -246,7 +241,12 @@
                     </li>
 
                 </sec:authorize>
-
+                <li>
+                    <a style="color: white" href="/${time1}">${time1}</a>
+                </li>
+                <li>
+                    <a style="color: white" href="/${time2}">${time2}</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->

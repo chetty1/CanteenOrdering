@@ -88,6 +88,9 @@
                     <li>
                         <a style="color: white" href="/viewmenu">View Menu</a>
                     </li>
+                    <li>
+                        <a style="color: white" href="/alltimestats">Statistics</a>
+                    </li>
                 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
     <li>
@@ -96,12 +99,17 @@
     <li>
         <a style="color: white" href="/factoryhistory">Factory History</a>
     </li>
+    <li>
+        <a style="color: white" href="/alltimestats">Statistics</a>
+    </li>
 </sec:authorize>
 <sec:authorize access="hasRole('ROLE_LINDA') and isAuthenticated()">
     <li>
         <a style="color: white" href="/balance">Change Balance</a>
     </li>
-
+    <li>
+        <a style="color: white" href="/alltimestats">Statistics</a>
+    </li>
 </sec:authorize>
                 <li>
                     <a style="color: white" href="/logout">Logout</a>

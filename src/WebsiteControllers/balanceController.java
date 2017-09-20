@@ -1,6 +1,9 @@
 package WebsiteControllers;
 
+import Model.Item;
 import Model.Staff;
+import Model.Tranaction;
+import Repositories.transactionRepository;
 import Repositories.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,6 +28,9 @@ public class balanceController {
 
     @Autowired
     userRepository repository;
+
+    @Autowired
+    transactionRepository repo;
 
 
     @RequestMapping(value = "/balance")
@@ -46,6 +54,11 @@ public class balanceController {
 
       Staff staff=  repository.findById(id);
         staff.setBalance(staff.getBalance()+Integer.parseInt(amount));
+
+        SimpleDateFormat date = new SimpleDateFormat("HHss");
+Item balance = new Item("Balance Added","Balance added to account",amount,"","","",false);
+        Tranaction tran = new Tranaction(staff.getId() + date.format(new Date()),balance,staff,"",1,true);
+        repo.save(tran);
         repository.save(staff);
     }
 

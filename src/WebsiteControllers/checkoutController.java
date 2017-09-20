@@ -126,7 +126,7 @@ public class checkoutController {
 
 
         for (int j = 0; j < list.size(); j++) {
-            tot = tot + Integer.parseInt(list.get(j).getFood().getPrice());
+            tot = tot + (Integer.parseInt(list.get(j).getFood().getPrice())*list.get(j).getQuantity());
         }
         if ((before - tot) > 0) {
 
