@@ -10,21 +10,21 @@
         window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 title: {
-                    text: "Bar Graph Showing food frequency"
+                    text: "Line Graph Show Food per Day"
                 },
                 data: [{
-                    type: "column",
+                    type: "line",
                     dataPoints: [
 
 
-                    <c:if test="${not empty statList}">
+                        <c:if test="${not empty statList}">
 
-                    <c:forEach items="${statList}" var="statLists">
+                        <c:forEach items="${statList}" var="statLists">
 
                         { y: ${statLists.value}, label: "${statLists.key}" },
 
-                    </c:forEach>
-                    </c:if>
+                        </c:forEach>
+                        </c:if>
                     ]
                 }]
             });
@@ -71,9 +71,9 @@
                 <li>
                     <a style="color: white" href="/weatherstats">Weather</a>
                 </li>
-                <li>
-                    <a style="color: white" href="/daystats">Day Stats</a>
-                </li>
+            </ul>
+
+
             </ul>
 
 

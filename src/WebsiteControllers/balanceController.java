@@ -50,14 +50,14 @@ public class balanceController {
     @RequestMapping(value = "/change", method = RequestMethod.POST)
     public void change(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
-      String amount=request.getParameter("amount");
+          String amount=request.getParameter("amount");
 
-      Staff staff=  repository.findById(id);
+         Staff staff=  repository.findById(id);
         staff.setBalance(staff.getBalance()+Integer.parseInt(amount));
 
         SimpleDateFormat date = new SimpleDateFormat("HHss");
-Item balance = new Item("Balance Added","Balance added to account",amount,"","","",false);
-        Tranaction tran = new Tranaction(staff.getId() + date.format(new Date()),balance,staff,"",1,true);
+        Item balance = new Item("Balance Added","Balance added to account",amount,"","","",false);
+        Tranaction tran = new Tranaction(balance,staff,"",1,true);
         repo.save(tran);
         repository.save(staff);
     }

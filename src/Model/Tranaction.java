@@ -46,7 +46,7 @@ public class Tranaction {
 
     }
 
-    public Tranaction(String id, Item food, Staff user, String time, int quantity,boolean isOrded) {
+    public Tranaction( Item food, Staff user, String time, int quantity,boolean isOrded) {
 
        SimpleDateFormat date = new SimpleDateFormat("dd/MM/YYYY");
         this.id = id;

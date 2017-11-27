@@ -213,7 +213,7 @@ public class checkoutController {
 
         Staff staff = repository.findByUsername(username);
         SimpleDateFormat date = new SimpleDateFormat("HHss");
-        Tranaction trans = new Tranaction(staff.getId() + date.format(new Date()), item, staff, time, 1, false);
+        Tranaction trans = new Tranaction(item, staff, time, 1, false);
 
         transrepo.save(trans);
     }

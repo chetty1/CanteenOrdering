@@ -56,6 +56,7 @@
     </bean>
 
     <bean id="email" init-method="complileCsv" class="Services.Email"></bean>
+    <bean id="weather" init-method="Weather"  class="Services.Weather"></bean>
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="smtp.gmail.com"/>
         <property name="port" value="587"/>

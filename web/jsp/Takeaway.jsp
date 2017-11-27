@@ -14,7 +14,16 @@
     <link href="<spring:url value="/assets/css/bootstrap.min.css"/>" rel="stylesheet">
     <link href="<spring:url value="/assets/font-awesome/css/font-awesome.css"/>" rel="stylesheet">
     <title>Orders</title>
+    <style>
+        tr td thead th table{
+            height:2% ;
+        }
 
+        button{
+            height: 25px;
+
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top"style="background-color:#000b54" role="navigation">
@@ -68,13 +77,9 @@
             </h1>
 
 
-        <table class="table table-bordered" style="text-align: center" id="takeawayTable">
+        <table class="table table-bordered" style="text-align: center;" id="takeawayTable">
             <thead >
-            <tr>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Order</th>
-                <th style="text-align: center">Quantity</th>
-            </tr>
+
             </thead>
             <tbody>
 
@@ -83,10 +88,12 @@
 
                 <c:forEach items="${takeawayList}" var="takeawayLists">
 
-                    <tr>
+                    <tr id ="${takeawayLists.id}row" >
                         <td>${takeawayLists.user.name}</td>
                         <td>${takeawayLists.food.name}</td>
                         <td>${takeawayLists.quantity}</td>
+                        <td> <button type="button" class="btn btn-default" id="${takeawayLists.id}" onclick="cancel(this.id)">Cancel</button></td>
+
                     </tr>
 
                 </c:forEach>
@@ -130,7 +137,7 @@
         var data= JSON.parse(event.data); //$.parseJSON(event.data);
         console.log(data);
         $.each(data, function(i, item) {
-
+var rowid= data[i].id;
              if (item.time=="takeaway") {
                 var ttable = document.getElementById("takeawayTable");
                 var trow = ttable.insertRow(-1);
@@ -139,6 +146,7 @@
                 var tcell2 = trow.insertCell(0);
                 var tcell3 = trow.insertCell(1);
                 var tcell4 = trow.insertCell(2);
+                 var tcell5=trow.insertCell(3);
 
 
 
@@ -147,11 +155,50 @@
                 tcell2.innerHTML = data[i].user.name;
                 tcell3.innerHTML= data[i].food.name;
                 tcell4.innerHTML= data[i].quantity;
-            }
+                 tcell5.innerHTML = '<button type="button" class="btn btn-default" id="button2" onclick="cancel(this.id)">Cancel</button>';
+                 document.getElementById("button2").id=rowid;
+trow.id=rowid+"row";
+             }
         });
 
 
 // Create an empty <tr> element and add it to the 1st position of the table:
+
+    }
+</script>
+<script>
+
+        function cancel(id) {
+
+            function deleteRow(rowid)
+            {
+                var row = document.getElementById(rowid);
+                var table = row.parentNode;
+                while ( table && table.tagName != 'TABLE' )
+                    table = table.parentNode;
+                if ( !table )
+                    return;
+                table.deleteRow(row.rowIndex);
+            }
+
+            $.ajax({
+                type: "post",
+                url: "/cancelorders",
+                datatype: 'json',
+                data: {
+                    id: id,
+
+                },
+
+                success: function (response) {
+deleteRow(id +"row");
+                    alert("Successfully Changed");
+                    console.log(id);
+                },
+                error: function () {
+                    alert('Error while request..');
+                }
+            });
 
     }
 </script>

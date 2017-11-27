@@ -251,14 +251,13 @@ text-align: center;
                     $("#myModal").modal();
                 }
                 else{
-                    alert("Order Successful click ok");
+                    alert("Order Successful click ok/close");
                     window.location="/login?logout"
 
                 }
 
             },
             error: function () {
-                alert('Error while request..');
 
             }
         });
@@ -304,7 +303,7 @@ text-align: center;
 
         try {
             var client;
-
+var count =false;
             client = new Paho.MQTT.Client("localhost", Number(8900), Math.round(Math.random() * 1000).toString());
             // set callback handlers
             client.onConnectionLost = onConnectionLost;
@@ -332,7 +331,10 @@ text-align: center;
             // called when a message arrives
             function onMessageArrived(message) {
                 console.log("onMessageArrived:" + message.payloadString);
-                onCheckout();
+                if(count== false) {
+                    onCheckout();
+                    count =true;
+                }
             }
         }
         catch (err){

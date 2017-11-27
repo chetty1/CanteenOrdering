@@ -15,8 +15,14 @@
     <link href="<spring:url value="/assets/font-awesome/css/font-awesome.css"/>" rel="stylesheet">
     <title>Orders</title>
 
+<style>
+    button{
+        height: 25px;
+    }
+</style>
 </head>
 <body>
+
 <nav class="navbar navbar-inverse navbar-fixed-top"style="background-color:#000b54" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -68,23 +74,20 @@
 
 
     <table class="table table-bordered" style="text-align: center" id="teaTable">
-        <thead>
-        <tr>
-            <th style="text-align: center">Name</th>
-            <th style="text-align: center">Order</th>
-            <th style="text-align: center">Quantity</th>
-        </tr>
-        </thead>
+
         <tbody>
 
         <c:if test="${not empty teaList}">
 
             <c:forEach items="${teaList}" var="teaLists">
 
-                <tr>
+                <tr id="${teaLists.id}row">
                     <td>${teaLists.user.name}</td>
                     <td>${teaLists.food.name}</td>
                     <td>${teaLists.quantity}</td>
+                    <td> <button type="button" class="btn btn-default" id="${teaLists.id}" onclick="cancel(this.id)">Cancel</button></td>
+
+
                 </tr>
 
             </c:forEach>
@@ -100,14 +103,8 @@
             </h1>
 
 
-        <table class="table table-bordered" style="text-align: center" id="lunchTable">
-            <thead >
-            <tr>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Order</th>
-                <th style="text-align: center">Quantity</th>
-            </tr>
-            </thead>
+        <table class="table table-bordered" style="text-align: center; " id="lunchTable">
+
             <tbody>
 
 
@@ -115,52 +112,20 @@
 
     <c:forEach items="${lunchList}" var="lunchLists">
 
-        <tr>
+        <tr id="${lunchLists.id}row" >
                 <td>${lunchLists.user.name}</td>
                 <td>${lunchLists.food.name}</td>
                 <td>${lunchLists.quantity}</td>
-            </tr>
+          <td> <button type="button" class="btn btn-default" id="${lunchLists.id}" onclick="cancel(this.id)">Cancel</button></td>
+
+        </tr>
 
 </c:forEach>
     </c:if>
             </tbody>
         </table>
 </div>
-       <!-- <div class="col-lg-4">
-            <h1 class="page-header">
-                <h3>Takeaway Orders</h3>
-            </h1>
 
-
-        <table class="table table-bordered" style="text-align: center" id="takeawayTable">
-            <thead >
-            <tr>
-                <th style="text-align: center">Name</th>
-                <th style="text-align: center">Order</th>
-                <th style="text-align: center">Quantity</th>
-            </tr>
-            </thead>
-            <tbody>
-
-
-            <c:if test="${not empty takeawayList}">
-
-                <c:forEach items="${takeawayList}" var="takeawayLists">
-
-                    <tr>
-                        <td>${takeawayLists.user.name}</td>
-                        <td>${takeawayLists.food.name}</td>
-                        <td>${takeawayLists.quantity}</td>
-                    </tr>
-
-                </c:forEach>
-            </c:if>
-            </tbody>
-        </table>
-            </div>
-    </div>
-</div>
--->
 </div>
 
 </div>
@@ -200,16 +165,18 @@
 
 
     var data= JSON.parse(event.data); //$.parseJSON(event.data);
-console.log(data);
+
         $.each(data, function(i, item) {
             if(item.time=="lunch"){
+                var id1=data[i].id;
                 var table = document.getElementById("lunchTable");
-                var row = table.insertRow(-1);
+                var row = table.insertRow(0);
 
 // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
                 var cell2 = row.insertCell(0);
                 var cell3 = row.insertCell(1);
                 var cell4 = row.insertCell(2);
+                var cell5 = row.insertCell(3);
 
 
 
@@ -218,16 +185,21 @@ console.log(data);
                 cell2.innerHTML = data[i].user.name;
                 cell3.innerHTML= data[i].food.name;
                 cell4.innerHTML= data[i].quantity;
-
+                cell5.innerHTML='<button type="button" id=button1 class="btn btn-default" onclick="cancel(this.id)">Cancel</button>';
+                document.getElementById("button1").id=id1;
+row.id=data[i].id+"row";
             }
             else if (item.time=="tea"){
+                var id2=data[i].id;
+
                 var teatable = document.getElementById("teaTable");
-                var tearow = teatable.insertRow(-1);
+                var tearow = teatable.insertRow(0);
 
 // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
                 var teacell2 = tearow.insertCell(0);
                 var teacell3 = tearow.insertCell(1);
                 var teacell4 = tearow.insertCell(2);
+                var teacell5 = tearow.insertCell(3);
 
 
 
@@ -236,30 +208,53 @@ console.log(data);
                 teacell2.innerHTML = data[i].user.name;
                 teacell3.innerHTML= data[i].food.name;
                 teacell4.innerHTML= data[i].quantity;
-
+                teacell5.innerHTML = '<button type="button" class="btn btn-default" id=button2 onclick="cancel(this.id)">Cancel</button>';
+document.getElementById("button2").id=id2;
+            tearow.id=data[i].id+"row";
             }
-            else if (item.time=="takeaway") {
-                var ttable = document.getElementById("takeawayTable");
-                var trow = ttable.insertRow(-1);
 
-// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-                var tcell2 = trow.insertCell(0);
-                var tcell3 = trow.insertCell(1);
-                var tcell4 = trow.insertCell(2);
-
-
-
-// Add some text to the new cells:
-
-                tcell2.innerHTML = data[i].user.name;
-                tcell3.innerHTML= data[i].food.name;
-                tcell4.innerHTML= data[i].quantity;
-            }
             });
 
 
 // Create an empty <tr> element and add it to the 1st position of the table:
 
+    }
+</script>
+
+<script>
+    function cancel(id) {
+        function deleteRow(rowid)
+        {
+            var row = document.getElementById(rowid);
+            var table = row.parentNode;
+            while ( table && table.tagName != 'TABLE' )
+                table = table.parentNode;
+            if ( !table )
+                return;
+            table.deleteRow(row.rowIndex);
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/cancelorders",
+            datatype: 'json',
+            data: {
+                id: id,
+
+            },
+
+            success: function (response) {
+
+                alert("Successfully Changed");
+                deleteRow(id +"row");
+
+                console.log(id);
+            },
+            error: function () {
+                console.log(id);
+                alert('Error while request..');
+            }
+        });
     }
 </script>
 <!-- Bootstrap Core JavaScript -->

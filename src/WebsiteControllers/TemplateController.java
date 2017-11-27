@@ -85,7 +85,7 @@ public class TemplateController {
         view.addObject("smallPrice", "4");
         view.addObject("smallChips", "small");
         view.addObject("smallPriceid", "priceInputSmall");
-        view.addObject("balance", repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getBalance());
+        view.addObject("balance",staff.getBalance());
         view.addObject("takeaway", false);
         view.addObject("foodlist", duplicates);
         view.addObject("time", "tea");
@@ -138,7 +138,7 @@ public class TemplateController {
         view.addObject("smallChips", "small");
         view.addObject("smallPriceid", "priceInputSmall");
         view.addObject("takeaway", false);
-        view.addObject("balance", repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).getBalance());
+        view.addObject("balance", staff.getBalance());
 
         view.addObject("foodlist", duplicates);
         view.addObject("time", "lunch");
