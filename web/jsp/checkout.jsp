@@ -137,12 +137,14 @@ text-align: center;
                         </div>
                         <div class="col-md-3">
 
-<sec:authorize access="hasRole('ROLE_STAFF') and isAuthenticated()">
 
-<button type="button" onclick="onCheckout()" class="btn btn-success btn-block">
-                                Checkout
-                            </button>
-    </sec:authorize>
+
+                            <sec:authorize access="hasRole('ROLE_STAFF') and isAuthenticated()">
+
+                                <button type="button" onclick="onCheckout()" class="btn btn-success btn-block">
+                                    Checkout
+                                </button>
+                            </sec:authorize>
 
                             <sec:authorize access="hasRole('ROLE_FLOOR_STAFF') and isAuthenticated()">
 
@@ -151,6 +153,7 @@ text-align: center;
                                 </h5>
 
                             </sec:authorize>
+
 </div>
                     </div>
                 </div>

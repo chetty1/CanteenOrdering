@@ -156,7 +156,7 @@
                                 <input type="checkbox" onclick="onSandwich()" class="form-check-input" name="sandwich" id="isSandwich" value="option1" >
                                 Sandwich
                             </label>
-                            <input type="hidden" id="sandwich" name="sandwich1" value="standard">
+                            <input type="hidden" id="sandwich" name="sandwich1" value="normal">
 
 
                         </div>
@@ -228,8 +228,14 @@ console.log(document.getElementById("time").value);
 </script>
 <script>
     function  onSandwich() {
-        document.getElementById("sandwich").value = "sandwich";
-console.log(document.getElementById("sandwich").value);
+        if(document.getElementById("isSandwich").checked) {
+            document.getElementById("sandwich").value = "sandwich";
+            console.log(document.getElementById("sandwich").value);
+        }
+        else{
+            document.getElementById("sandwich").value = "normal";
+
+        }
     }
 </script>
 </html>

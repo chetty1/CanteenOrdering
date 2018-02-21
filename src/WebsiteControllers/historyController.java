@@ -77,7 +77,7 @@ public class historyController {
     public ModelAndView factoryview() {
         ModelAndView view = new ModelAndView("History");
 
-     ArrayList<Tranaction>   faclist = new ArrayList<>(repository.findAll());
+     ArrayList<Tranaction> faclist = new ArrayList<>(repository.findAll());
         for (int i=0;i<faclist.size();i++) {
 
             Tranaction trn = faclist.get(i);
@@ -114,10 +114,14 @@ public class historyController {
                 list2.add(tran);
             }
         }
+
+
         view.addObject("historyList", list2);
         System.out.println(list2);
         view.addObject("history","factoryhistory");
         view.addObject("search","Name");
         return view;
     }
+
+
 }

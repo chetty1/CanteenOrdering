@@ -1,7 +1,6 @@
 package WebsiteControllers;
 
 import Model.Staff;
-import Mqtt.Mqtt_sub;
 import Repositories.userRepository;
 import jdk.nashorn.internal.ir.RuntimeNode;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -30,7 +29,7 @@ import java.util.Date;
  * Created by chett_000 on 2017/05/10.
  */
 @Controller
-@EnableWebSocket
+
 public class loginController {
 
     @Autowired

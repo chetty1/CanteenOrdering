@@ -41,8 +41,12 @@ public class StatsController {
         for(Tranaction tran:stat) {
             Integer count = freq.get(tran.getFood().getName());
             if (tran.isOrded()) {
-
-                freq.put(tran.getFood().getName(), (count == null) ? 1 : count + 1);
+                if (count == null) {
+                    count = tran.getQuantity();
+                } else {
+                    count = count +  tran.getQuantity();
+                }
+                freq.put(tran.getFood().getName(), count);
             }
         }
         view.addObject("statList",freq);
@@ -63,8 +67,12 @@ public class StatsController {
         for(Tranaction tran:stat) {
             Integer count = freq.get(tran.getFood().getName());
             if (tran.isOrded()&& tran.getTime().equals("tea")) {
-
-                freq.put(tran.getFood().getName(), (count == null) ? 1 : count + 1);
+                if (count == null) {
+                    count = tran.getQuantity();
+                } else {
+                    count = count +  tran.getQuantity();
+                }
+                freq.put(tran.getFood().getName(), count);
             }
         }
         view.addObject("statList",freq);
@@ -85,7 +93,12 @@ public class StatsController {
             Integer count = freq.get(tran.getFood().getName());
             if (tran.isOrded() && tran.getTime().equals("lunch")) {
 
-                freq.put(tran.getFood().getName(), (count == null) ? 1 : count + 1);
+                if (count == null) {
+                    count = tran.getQuantity();
+                } else {
+                    count = count +  tran.getQuantity();
+                }
+                freq.put(tran.getFood().getName(), count);
             }
         }
         view.addObject("statList",freq);

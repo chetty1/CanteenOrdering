@@ -17,7 +17,7 @@ public class DateComparator implements Comparator<Tranaction> {
 
         try {
             Date date1=new SimpleDateFormat("dd/MM/yyyy").parse(o1.getDate());
-            Date date2 = new SimpleDateFormat("dd/MM/yyy").parse(o2.getDate());
+            Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(o2.getDate());
 
             return -1*date1.compareTo(date2);
         } catch (ParseException e) {

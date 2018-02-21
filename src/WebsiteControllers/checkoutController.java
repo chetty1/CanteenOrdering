@@ -60,16 +60,16 @@ public class checkoutController {
         total = 0;
 
 
-        for (Tranaction temp : transrepo.findAllByUserAndDate(staff1, new SimpleDateFormat("dd/MM/YYYY").format(new Date()))) {
+        for (Tranaction temp : transrepo.findAllByUserAndDate(staff1, new SimpleDateFormat("dd/MM/yyyy").format(new Date()))) {
             Integer count = map.get(temp);
             if (!temp.isOrded()) {
 
                 map.put(temp, (count == null) ? 1 : count + 1);
             }
 
-            if (count!=null){
+           /* if (count!=null){
                 transrepo.delete(temp.getId());
-            }
+            }*/
         }
 
         for (Map.Entry<Tranaction, Integer> entry : map.entrySet()) {
@@ -115,7 +115,7 @@ public class checkoutController {
         int before = staff.getBalance();
         orders = new ArrayList<>();
         int tot = 0;
-        ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/YYYY").format(new Date()));
+        ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
         for (int i = 0; i < list.size(); i++) {
             Tranaction tran = list.get(i);
 
@@ -216,6 +216,7 @@ public class checkoutController {
         Tranaction trans = new Tranaction(item, staff, time, 1, false);
 
         transrepo.save(trans);
+        System.out.println(trans);
     }
 
     @RequestMapping(value = "/liveorders")

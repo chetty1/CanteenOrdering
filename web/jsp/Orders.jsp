@@ -51,7 +51,9 @@
                 <li>
                     <a style="color: white" href="/takeawayOrders">Takeaway</a>
                 </li>
-
+                <li>
+                    <a style="color: white" href="/quantities">Quantities</a>
+                </li>
             </ul>
 
 

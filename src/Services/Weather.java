@@ -25,7 +25,7 @@ public class Weather {
 @PostConstruct
     public void Weather() throws IOException {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Durban&units=metric&APPID=7779f6b5aa7cafdea5d217376eb911dd",String.class);
+        ResponseEntity<String> response = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Pinetown&units=metric&APPID=7779f6b5aa7cafdea5d217376eb911dd",String.class);
 
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());

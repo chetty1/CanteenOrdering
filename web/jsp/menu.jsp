@@ -86,6 +86,10 @@
                         <a style="color: white" href="/additem">Add Menu Item</a>
                     </li>
                     <li>
+                        <a style="color: white" href="/quantities">Quantities</a>
+
+                    </li>
+                    <li>
                         <a style="color: white" href="/viewmenu">View Menu</a>
                     </li>
                     <li>
@@ -107,6 +111,16 @@
     <li>
         <a style="color: white" href="/balance">Change Balance</a>
     </li>
+    <li>
+        <a style="color: white" href="/factoryhistory">Factory History</a>
+
+    </li>
+
+    <li>
+        <a style="color: white" href="/totalspent">Total Spent</a>
+
+    </li>
+
     <li>
         <a style="color: white" href="/alltimestats">Statistics</a>
     </li>

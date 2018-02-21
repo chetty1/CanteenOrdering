@@ -72,7 +72,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="color:white;" href="/menu"><sec:authentication property="principal.username" /></a>
+            <a class="navbar-brand" style="color:white;" href="/menu"><sec:authentication
+                    property="principal.username"/></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -87,7 +88,10 @@
                 <li>
                     <a style="color: white" href="/factoryhistory">Factory History</a>
                 </li>
+                <li>
+                    <a style="color: white" href="/totalspent">Total Spent</a>
 
+                </li>
 
             </ul>
         </div>
@@ -105,65 +109,74 @@
         <div class="col-lg-12">
             <h1 class="page-header">
                 <h3></h3>
+
             </h1>
         </div>
         <p></p>
         <div class="row">
-            <form  method="post" action="/balance"  enctype="multipart/form-data">
 
-        <div id="custom-search-input">
-                <div class="input-group col-lg-3" style="left: 1%">
-                    <input type="text" name="search" class="  search-query form-control" id="search" placeholder="Search"/>
+            <form method="post" action="/balance" enctype="multipart/form-data">
 
-                    <span class="input-group-btn">
+                <div id="custom-search-input">
+                    <div class="input-group col-lg-3" style="left: 1%">
+                        <input type="text" name="search" class="  search-query form-control" id="search"
+                               placeholder="Search"/>
+
+                        <span class="input-group-btn">
 
                                     <button class="btn btn-danger" type="button">
                                         <span class=" glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
+
+                    </div>
+
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+
+        </div>
+        <button type="button" class="btn btn-primary" onclick="correctBalance()">Correct all Balances to R500</button>
 
         <c:if test="${not empty balanceList}">
 
-    <c:forEach items="${balanceList}" var="balanceList">
-        <h3>
-            <a data-toggle="modal"  href="#myModal${balanceList.id}">${balanceList.name}</a>
-        </h3>
+            <c:forEach items="${balanceList}" var="balanceList">
+                <h3>
+                    <a data-toggle="modal" href="#myModal${balanceList.id}">${balanceList.name}</a>
+                </h3>
 
-        <div id="myModal${balanceList.id}" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+                <div id="myModal${balanceList.id}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"></button>
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"></button>
 
-                        <h4 class="modal-title">Change Balance of ${balanceList.name}</h4>
-                    </div>
-                    <div class="modal-body">
+                                <h4 class="modal-title">Change Balance of ${balanceList.name}</h4>
+                            </div>
+                            <div class="modal-body">
 
-                            <small>Amount:</small>
+                                <small>Amount:</small>
 
-                            <input type="number"  name="emailid" id="amount${balanceList.id}" value="">
+                                <input type="number" name="emailid" id="amount${balanceList.id}" value="">
 
 
-                    </div>
-                    <p></p>
+                            </div>
+                            <p></p>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" id="${balanceList.id}" onclick="save(this.id)" data-dismiss="modal">Save</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="${balanceList.id}"
+                                        onclick="save(this.id)" data-dismiss="modal">Save
+                                </button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                            </div>
+                        </div>
 
                     </div>
                 </div>
-
-            </div>
-        </div>
-    </c:forEach>
-</c:if>
+            </c:forEach>
+        </c:if>
     </div>
 
 
@@ -176,15 +189,33 @@
         $.ajax({
             type: "post",
             url: "/change",
-            datatype:'json',
+            datatype: 'json',
             data: {
-                id:id,
-                amount:document.getElementById("amount"+id).value
+                id: id,
+                amount: document.getElementById("amount" + id).value
             },
 
             success: function (response) {
                 console.log(response);
 
+            },
+            error: function () {
+                alert('Error while request..');
+            }
+        });
+    }
+</script>
+
+<script>
+    function correctBalance() {
+        $.ajax({
+            type: "post",
+            url: "/correct",
+            datatype: 'json',
+
+
+            success: function (response) {
+                alert('Success')
             },
             error: function () {
                 alert('Error while request..');

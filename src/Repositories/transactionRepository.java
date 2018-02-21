@@ -5,6 +5,7 @@ import Model.Tranaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,5 +25,10 @@ List<Tranaction> findAllByUserAndDate(Staff user,String date);
 
     List<Tranaction>  findAllByDate(String date);
 
+    @Query("{'time' : {$ne : ?0}}")
+    List<Tranaction> findAllByNotTime(String time);
+
+    @Query("{'date':{ $gte: ?0, $lte: ?1}}")
+List<Tranaction> findAllBetween(String date1, String date2);
 
 }

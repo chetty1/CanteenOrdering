@@ -63,4 +63,15 @@ public class balanceController {
     }
 
 
+
+    @RequestMapping(value = "/correct", method = RequestMethod.POST)
+    public void correct(HttpServletRequest request, HttpServletResponse response) {
+    ArrayList<Staff> list = (ArrayList<Staff>) repository.findAll();
+
+        for(int i=0;i<list.size();i++){
+            list.get(i).setBalance(500);
+        }
+        repository.save(list);
+
+    }
 }

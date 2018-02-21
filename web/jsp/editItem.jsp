@@ -157,10 +157,10 @@
                     <div class="col-md-5 col-sm-8">
                         <div class="input-group" style="padding-top: 8px">
                             <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" name="sandwich" id="isSandwich" value="option1" ${sandwich} >
+                                <input type="checkbox" class="form-check-input" onclick="onSandwich()" name="sandwich" id="isSandwich" value="option1" ${sandwich} >
                                 Sandwich
                             </label>
-                            <input type="hidden" id="sandwich" name="sandwich1" value="">
+                            <input type="hidden" id="sandwich" name="sandwich1" value="normal">
 
 
                         </div>
@@ -208,6 +208,18 @@
 
 
 </body>
+<script>
+    function  onSandwich() {
+        if(document.getElementById("isSandwich").checked) {
+            document.getElementById("sandwich").value = "sandwich";
+            console.log(document.getElementById("sandwich").value);
+        }
+        else{
+            document.getElementById("sandwich").value = "normal";
+
+        }
+    }
+</script>
 <script src="/assets/js/bootstrap.js"></script>
 <script>
     $(document).ready(function () {

@@ -37,7 +37,8 @@ http://www.springframework.org/schema/websocket/spring-websocket.xsd">
         <intercept-url pattern="/viewmenu" access="hasRole('ROLE_CHEF')"/>
         <intercept-url pattern="/checkout" access="hasAnyRole('ROLE_ADMIN','ROLE_CHEF','ROLE_FLOOR_STAFF','ROLE_STAFF','ROLE_LINDA')"/>
         <intercept-url pattern="/alltimestats" access="hasAnyRole('ROLE_ADMIN','ROLE_CHEF','ROLE_FLOOR_STAFF','ROLE_STAFF','ROLE_LINDA')"/>
-
+        <intercept-url pattern="/quantities" access="hasRole('ROLE_CHEF')"/>
+        <intercept-url pattern="/totalspent" access="hasRole('ROLE_LINDA')"/>
 
         <form-login login-page="/login"  authentication-failure-url="/login?error" authentication-success-handler-ref="successHandler"/>
         <logout logout-url="/logout" logout-success-url="/login?logout"/>
