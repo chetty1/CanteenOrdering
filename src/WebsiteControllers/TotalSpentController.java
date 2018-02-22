@@ -36,7 +36,7 @@ Integer count=0;
  SimpleDateFormat format=   new SimpleDateFormat("dd/MM/yyyy");
     ArrayList<Tranaction> dateComp = new ArrayList<Tranaction>();
 
-    ArrayList<Tranaction> list = (ArrayList<Tranaction>) repo.findAllByNotTime("cancelorder");
+    ArrayList<Tranaction> list = (ArrayList<Tranaction>) repo.findAllByNotTime("cancelorder","Balance Added");
     for(int i =0;i<list.size();i++){
         if(format.parse(before).compareTo(format.parse(list.get(i).getDate()))==-1 && format.parse(after).compareTo(format.parse(list.get(i).getDate()))==1){
             dateComp.add(list.get(i));
@@ -51,7 +51,7 @@ Integer count=0;
 
 
 
-    for(int i=0;i<dateComp.size();i++){
+   /* for(int i=0;i<dateComp.size();i++){
     Tranaction tran = dateComp.get(i);
 
     if(tran.getFood().getName().equals("Balance Added")){
@@ -60,7 +60,7 @@ Integer count=0;
 
 
 }
-
+*/
 /*for (int i=0;i<dateComp.size();i++){
     Tranaction tran = dateComp.get(i);
     if(tran.getTime().equals("cancelorder")){

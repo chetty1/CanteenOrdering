@@ -113,7 +113,9 @@ public class ordersController {
         String id = request.getParameter("id");
         Tranaction tran = repo.findById(id);
 
-        Item item = new Item(tran.getFood().getName() + "-Order Cancelled", "Order Cancelled", tran.getFood().getPrice(), "", "", "", false);
+        System.out.println(tran.getQuantity());
+
+        Item item = new Item(tran.getFood().getName() + "-Order Cancelled", "Order Cancelled", Integer.toString(tran.getQuantity() * Integer.parseInt(tran.getFood().getPrice())), "", "", "", false);
 
         Staff staff = userRepo.findByUsername(tran.getUser().getUsername());
         int balancebefore = staff.getBalance();

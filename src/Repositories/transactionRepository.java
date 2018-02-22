@@ -24,9 +24,10 @@ List<Tranaction> findAllByUserAndDate(Staff user,String date);
 
 
     List<Tranaction>  findAllByDate(String date);
+   // @Query("{'$or':[ {'type':?0}, {'name':?1} ]}")
 
-    @Query("{'time' : {$ne : ?0}}")
-    List<Tranaction> findAllByNotTime(String time);
+    @Query("{'time' : {$ne : ?0},'food.name' : {$ne : ?1}}")
+    List<Tranaction> findAllByNotTime(String time1,String time2);
 
     @Query("{'date':{ $gte: ?0, $lte: ?1}}")
 List<Tranaction> findAllBetween(String date1, String date2);

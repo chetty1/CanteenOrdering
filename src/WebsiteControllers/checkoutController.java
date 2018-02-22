@@ -65,21 +65,25 @@ public class checkoutController {
             if (!temp.isOrded()) {
 
                 map.put(temp, (count == null) ? 1 : count + 1);
+
+            }
+           if (count!=null){
+                transrepo.delete(temp.getId());
             }
 
-           /* if (count!=null){
-                transrepo.delete(temp.getId());
-            }*/
         }
 
         for (Map.Entry<Tranaction, Integer> entry : map.entrySet()) {
 
             Tranaction tran = entry.getKey();
-
-            tran.setQuantity(entry.getValue());
+if(tran.getQuantity()<=entry.getValue()) {
+    tran.setQuantity(entry.getValue());
+}
             transrepo.save(tran);
             quantity.add(tran);
+
         }
+
         for (Tranaction tranaction : quantity) {
             total = total + (Integer.parseInt(tranaction.getFood().getPrice()) * tranaction.getQuantity());
 
@@ -116,6 +120,7 @@ public class checkoutController {
         orders = new ArrayList<>();
         int tot = 0;
         ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+
         for (int i = 0; i < list.size(); i++) {
             Tranaction tran = list.get(i);
 
