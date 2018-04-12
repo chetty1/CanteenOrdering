@@ -119,7 +119,7 @@ if(tran.getQuantity()<=entry.getValue()) {
         int before = staff.getBalance();
         orders = new ArrayList<>();
         int tot = 0;
-        ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+      final  ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 
         for (int i = 0; i < list.size(); i++) {
             Tranaction tran = list.get(i);

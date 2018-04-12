@@ -151,7 +151,7 @@ public class TemplateController {
         Date lunch = parser.parse("08:30");
         Date userDate = parser.parse(parser.format(new Date()));
 
-        if(( staff.getName().equals("Russell Gwynn") || staff.getName().equals("Ronny Pelucci"))) {
+        if(( staff.getName().equals("Russell Gwynn") || staff.getName().equals("Ronny Pelucci")|| staff.getName().equals("Guest1")|| staff.getName().equals("Guest2")|| staff.getName().equals("Guest3"))) {
             return view;
         }
 

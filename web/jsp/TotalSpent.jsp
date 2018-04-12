@@ -19,17 +19,19 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top"style="background-color:#000b54" role="navigation">
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#000b54" role="navigation">
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" style="color:white;" href="/menu"><sec:authentication property="principal.username" /></a>
+            <a class="navbar-brand" style="color:white;" href="/menu"><sec:authentication
+                    property="principal.username"/></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -62,68 +64,69 @@
 <h3></h3>
 <h3></h3>
 <div class="container">
-<div class="row">
-    <div class="col-lg-8">
-        <h1 class="page-header">
-            <h3>Total Spent</h3>
-        </h1>
-        <form class="form-horizontal" name="totalspent" id="totalspent" method="post" action="/totalspent"  enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="page-header">
+                <h3>Total Spent</h3>
+            </h1>
+            <form class="form-horizontal" name="totalspent" id="totalspent" method="post" action="/totalspent"
+                  enctype="multipart/form-data">
 
-        <div class="col-lg-5">
-        <div class="input-group input-daterange" >
-            <input type="text" name="before" class="form-control">
-            <div class="input-group-addon">To</div>
-            <input type="text" name="after"  class="form-control" >
+                <div class="col-lg-5">
+                    <div class="input-group input-daterange">
+                        <input type="text" name="before" class="form-control">
+                        <div class="input-group-addon">To</div>
+                        <input type="text" name="after" class="form-control">
+                    </div>
+
+                </div>
+                <button type="submit" name="submit" class="btn btn-default" data-dismiss="modal">
+                    Search
+                </button>
+            </form>
+
         </div>
-
     </div>
-            <button type="submit" name="submit"  class="btn btn-default" data-dismiss="modal">
-            Search
-        </button>
-        </form>
-
-    </div>
-</div>
     <div class="row">
         <p></p>
         <div class="col-lg-6">
-        <table class="table table-bordered" style="text-align: center" id="teaTable">
-            <thead>
-            <tr>
-                <th style="text-align: center">Date Between</th>
+            <table class="table table-bordered" style="text-align: center" id="teaTable">
+                <thead>
+                <tr>
+                    <th style="text-align: center">Date Between</th>
 
-                <th style="text-align: center">Name</th>
+                    <th style="text-align: center">Name</th>
 
-                <th style="text-align: center">Total Spent</th>
+                    <th style="text-align: center">Total Spent</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <c:if test="${not empty spentList}">
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="${not empty spentList}">
 
-                <c:forEach items="${spentList}" var="List">
-                    <tr>
+                    <c:forEach items="${spentList}" var="List">
+                        <tr>
 
-                        <th >${dateBefore}-${dateAfter}</th>
-                        <td>${List.key}</td>
-                        <td>R${List.value}</td>
+                            <th>${dateBefore}-${dateAfter}</th>
+                            <td>${List.key}</td>
+                            <td>R${List.value}</td>
 
-                    </tr>
-                </c:forEach>
-            </c:if>
+                        </tr>
+                    </c:forEach>
+                </c:if>
 
-            </tbody>
-        </table>
-            </div>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    </div>
+</div>
 <script src="<spring:url value="/assets/js/bootstrap.js"/>"></script>
 <script src="<spring:url value="/assets/js/jquery.js"/>"></script>
 <script src="<spring:url value="/assets/dist/js/bootstrap-datepicker.js"/>"></script>
 
 <script type="text/javascript">
-    $('.input-daterange input').each(function() {
+    $('.input-daterange input').each(function () {
         $(this).datepicker({
             format: 'dd/mm/yyyy'
 
