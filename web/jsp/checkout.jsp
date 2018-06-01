@@ -139,6 +139,8 @@ text-align: center;
 
 
 
+
+
                             <sec:authorize access="hasRole('ROLE_STAFF') and isAuthenticated()">
 
                                 <button type="button" onclick="onCheckout()" class="btn btn-success btn-block">
@@ -153,6 +155,8 @@ text-align: center;
                                 </h5>
 
                             </sec:authorize>
+
+
 
 </div>
                     </div>

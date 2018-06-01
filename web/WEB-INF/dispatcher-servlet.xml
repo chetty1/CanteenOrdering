@@ -30,7 +30,7 @@
     <!-- <mongo:mongo host="192.168.0.110" port="27017"/>-->
 
 
-    <mongo:db-factory id="mongoDbFactory" dbname="CanteenPics"/>
+    <mongo:db-factory id="mongoDbFactory"  dbname="CanteenPics"/>
     <mongo:mapping-converter id="converter"/>
 
     <bean name="gridFsTemplate"

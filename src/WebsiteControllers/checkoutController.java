@@ -61,24 +61,26 @@ public class checkoutController {
 
 
         for (Tranaction temp : transrepo.findAllByUserAndDate(staff1, new SimpleDateFormat("dd/MM/yyyy").format(new Date()))) {
-            Integer count = map.get(temp);
-            if (!temp.isOrded()) {
 
-                map.put(temp, (count == null) ? 1 : count + 1);
+            if (temp != null) {
+                Integer count = map.get(temp);
+                if (!temp.isOrded()) {
 
+                    map.put(temp, (count == null) ? 1 : count + 1);
+
+                }
+                if (count != null) {
+                    transrepo.delete(temp.getId());
+                }
             }
-           if (count!=null){
-                transrepo.delete(temp.getId());
-            }
-
         }
 
         for (Map.Entry<Tranaction, Integer> entry : map.entrySet()) {
 
             Tranaction tran = entry.getKey();
-if(tran.getQuantity()<=entry.getValue()) {
-    tran.setQuantity(entry.getValue());
-}
+            if (tran.getQuantity() <= entry.getValue()) {
+                tran.setQuantity(entry.getValue());
+            }
             transrepo.save(tran);
             quantity.add(tran);
 
@@ -99,14 +101,16 @@ if(tran.getQuantity()<=entry.getValue()) {
 
 
     @RequestMapping(value = "/clickdelete", method = RequestMethod.POST)
-    public @ResponseBody boolean delete(HttpServletRequest request, HttpServletResponse response) {
+    public
+    @ResponseBody
+    boolean delete(HttpServletRequest request, HttpServletResponse response) {
         String raw = request.getParameter("Id");
         String id = raw.substring(6);
 
-        Tranaction tran =transrepo.findById(id);
+        Tranaction tran = transrepo.findById(id);
         System.out.println(tran);
 
-       transrepo.delete(tran.getId());
+        transrepo.delete(tran.getId());
         return true;
     }
 
@@ -119,7 +123,7 @@ if(tran.getQuantity()<=entry.getValue()) {
         int before = staff.getBalance();
         orders = new ArrayList<>();
         int tot = 0;
-      final  ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+        final ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 
         for (int i = 0; i < list.size(); i++) {
             Tranaction tran = list.get(i);
@@ -131,14 +135,13 @@ if(tran.getQuantity()<=entry.getValue()) {
 
 
         for (int j = 0; j < list.size(); j++) {
-            tot = tot + (Integer.parseInt(list.get(j).getFood().getPrice())*list.get(j).getQuantity());
+            tot = tot + (Integer.parseInt(list.get(j).getFood().getPrice()) * list.get(j).getQuantity());
         }
         if ((before - tot) > 0) {
 
             staff.setBalance(before - tot);
 
             repository.save(staff);
-
 
 
             for (int i = 0; i < list.size(); i++) {

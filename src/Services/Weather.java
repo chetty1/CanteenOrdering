@@ -24,19 +24,22 @@ public class Weather {
 
 @PostConstruct
     public void Weather() throws IOException {
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Pinetown&units=metric&APPID=7779f6b5aa7cafdea5d217376eb911dd",String.class);
+     try {
+         RestTemplate restTemplate = new RestTemplate();
+         ResponseEntity<String> response = restTemplate.getForEntity("http://api.openweathermap.org/data/2.5/weather?q=Pinetown&units=metric&APPID=7779f6b5aa7cafdea5d217376eb911dd", String.class);
 
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode root = mapper.readTree(response.getBody());
+         ObjectMapper mapper = new ObjectMapper();
+         JsonNode root = mapper.readTree(response.getBody());
 
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
-
-
+         SimpleDateFormat format = new SimpleDateFormat("dd/MM/YYYY");
 
 
-        WeatherObject obj = new WeatherObject(root.findValue("temp_max").asText(),root.findValues("weather").get(0).findValue("main").asText(),format.format(new Date()));
-        repository.save(obj);
-        System.out.println(root.findValues("weather").get(0).findValue("main"));
+         WeatherObject obj = new WeatherObject(root.findValue("temp_max").asText(), root.findValues("weather").get(0).findValue("main").asText(), format.format(new Date()));
+         repository.save(obj);
+         System.out.println(root.findValues("weather").get(0).findValue("main"));
+     }
+     catch (Exception e ){
+
+     }
     }
 }
