@@ -94,11 +94,21 @@ Integer count=0;
 
     }
 
+    LinkedHashMap<String,Integer> totalMap =  new LinkedHashMap(userMap);
+    int total =0;
+    for(Map.Entry<String,Integer> entry :totalMap.entrySet()){
+
+       total = total+ entry.getValue();
+
+
+    }
+
+    totalMap.put("Total",total);
 
 
     view.addObject("dateBefore",before);
     view.addObject("dateAfter",after);
-    view.addObject("spentList",userMap);
+    view.addObject("spentList",totalMap);
 
     return view;
     }
