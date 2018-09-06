@@ -249,7 +249,7 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username"/>" == "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Russell&#32;Gwynn") {
+                    if ("<sec:authentication property="principal.username"/>" == "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" == "John&#32;Pelucci") {
 
 
                     }
@@ -270,7 +270,7 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username"/>" != "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" != "Guest1" && "<sec:authentication property="principal.username"/>" != "Guest2" && "<sec:authentication property="principal.username"/>" != "Guest3") {
+                    if ("<sec:authentication property="principal.username"/>" != "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" != "Guest1" && "<sec:authentication property="principal.username"/>" != "Guest2" && "<sec:authentication property="principal.username"/>" != "Guest3" && "<sec:authentication property="principal.username"/>" != "John&#32;Pelucci") {
 
                         document.getElementById("tea").className = "disabled";
                         document.getElementById("lunch").className = "disabled";
