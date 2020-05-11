@@ -20,34 +20,32 @@ import java.util.*;
 
 @Controller
 public class TotalSpentController {
-@Autowired
+    @Autowired
     transactionRepository repo;
 
-@RequestMapping(value = "/totalspent")
-    public String view(){
-    return"TotalSpent";
-}
+    @RequestMapping(value = "/totalspent")
+    public String view() {
+        return "TotalSpent";
+    }
 
-@RequestMapping(value = "/totalspent",method = RequestMethod.POST)
+    @RequestMapping(value = "/totalspent", method = RequestMethod.POST)
     public ModelAndView View(@RequestParam("before") String before, @RequestParam("after") String after) throws ParseException {
 
         ModelAndView view = new ModelAndView("TotalSpent");
-Integer count=0;
- SimpleDateFormat format=   new SimpleDateFormat("dd/MM/yyyy");
-    ArrayList<Tranaction> dateComp = new ArrayList<Tranaction>();
+        Integer count = 0;
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        ArrayList<Tranaction> dateComp = new ArrayList<Tranaction>();
 
-    ArrayList<Tranaction> list = (ArrayList<Tranaction>) repo.findAllByNotTime("cancelorder","Balance Added");
-    for(int i =0;i<list.size();i++){
-        if(format.parse(before).compareTo(format.parse(list.get(i).getDate()))==-1 && format.parse(after).compareTo(format.parse(list.get(i).getDate()))==1){
-            dateComp.add(list.get(i));
+        ArrayList<Tranaction> list = (ArrayList<Tranaction>) repo.findAllByNotTime("cancelorder", "Balance Added");
+        for (int i = 0; i < list.size(); i++) {
+            if (format.parse(before).compareTo(format.parse(list.get(i).getDate())) == -1 && format.parse(after).compareTo(format.parse(list.get(i).getDate())) == 1) {
+                dateComp.add(list.get(i));
+            } else if (format.parse(before).compareTo(format.parse(list.get(i).getDate())) == 0) {
+                dateComp.add(list.get(i));
+            } else if (format.parse(after).compareTo(format.parse(list.get(i).getDate())) == 0) {
+                dateComp.add(list.get(i));
+            }
         }
-        else if (format.parse(before).compareTo(format.parse(list.get(i).getDate()))==0 ){
-            dateComp.add(list.get(i));
-        }
-        else if (format.parse(after).compareTo(format.parse(list.get(i).getDate()))==0 ){
-            dateComp.add(list.get(i));
-        }
-    }
 
 
 
@@ -78,39 +76,38 @@ Integer count=0;
     }
 */
 
-    TreeMap<String,Integer> userMap = new TreeMap<>();
-    for(int i=0;i<dateComp.size();i++){
-        Tranaction tran = dateComp.get(i);
-        count = userMap.get(dateComp.get(i).getUser().getName());
-        if(count==null){
-           count= Integer.parseInt(tran.getFood().getPrice())*tran.getQuantity();
+        TreeMap<String, Integer> userMap = new TreeMap<>();
+        for (int i = 0; i < dateComp.size(); i++) {
+            Tranaction tran = dateComp.get(i);
+            count = userMap.get(dateComp.get(i).getUser().getName());
+            if (count == null) {
+                count = Integer.parseInt(tran.getFood().getPrice()) * tran.getQuantity();
+            } else {
+                count = count + Integer.parseInt(tran.getFood().getPrice()) * tran.getQuantity();
+            }
+
+            userMap.put(dateComp.get(i).getUser().getName(), count);
+
+
         }
-        else{
-            count = count +Integer.parseInt(tran.getFood().getPrice())*tran.getQuantity();
+
+        LinkedHashMap<String, Integer> totalMap = new LinkedHashMap(userMap);
+        int total = 0;
+        for (Map.Entry<String, Integer> entry : totalMap.entrySet()) {
+
+            total = total + entry.getValue();
+
+
         }
 
-        userMap.put(dateComp.get(i).getUser().getName(),count);
+        totalMap.put("Total", total);
 
 
-    }
+        view.addObject("dateBefore", before);
+        view.addObject("dateAfter", after);
+        view.addObject("spentList", totalMap);
 
-    LinkedHashMap<String,Integer> totalMap =  new LinkedHashMap(userMap);
-    int total =0;
-    for(Map.Entry<String,Integer> entry :totalMap.entrySet()){
-
-       total = total+ entry.getValue();
-
-
-    }
-
-    totalMap.put("Total",total);
-
-
-    view.addObject("dateBefore",before);
-    view.addObject("dateAfter",after);
-    view.addObject("spentList",totalMap);
-
-    return view;
+        return view;
     }
 
 }

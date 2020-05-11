@@ -49,12 +49,8 @@
 
             </ul>
         </div>
-        <!--<div class="col-md-8" style="align-content: center">
-            <i class="fa fa-shopping-cart pull-right" style="color: grey; "></i>
-        </div>
-        <!-- /.navbar-collapse -->
+
     </div>
-    <!-- /.container -->
 </nav>
 <div class="container">
 
@@ -72,6 +68,8 @@
                 <th style="text-align: center">Tea/Lunch/Standard/Takeaway</th>
                 <th style="text-align: center">Today's Menu</th>
                 <th style="text-align: center">View/Edit Menu</th>
+                <th style="text-align: center">Remove</th>
+
             </tr>
             </thead>
             <tbody>
@@ -97,6 +95,11 @@
                 <td>
 
                     <a type="button" href="${itemLists.id}/edititem" class="btn button-info" style="background-color: #4580e0;  color: white">view</a>
+
+                </td>
+                <td>
+
+                    <a type="button" id="${itemLists.id}remove" onclick="itemRemove('${itemLists.id}',this);" class="btn button-info" style="background-color: #4580e0;  color: white">Remove</a>
 
                 </td>
 
@@ -140,6 +143,31 @@ alert("Successfully Changed");
         });
     }
 </script>
+
+<script>
+    function itemRemove(id,btn) {
+
+        $.ajax({
+            type: "post",
+            url: "/itemremove",
+            datatype: 'json',
+            data: {
+                id: id
+
+            },
+
+            success: function (response) {
+                var row = btn.parentNode.parentNode;
+                row.parentNode.removeChild(row);
+                alert("Successfully Changed");
+            },
+            error: function () {
+                alert('Error while request..');
+            }
+        });
+    }
+</script>
+
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<spring:url value="/assets/js/bootstrap.js"/>"></script>

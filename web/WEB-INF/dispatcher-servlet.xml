@@ -39,7 +39,7 @@
         <constructor-arg ref="converter"/>
     </bean>
 
-    <mongo:mongo host="localhost" port="27017"/>
+    <mongo:mongo-client id="mongo-client" host="localhost" port="27017"/>
     <bean id="multipartResolver"
           class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5000000"/>
@@ -50,7 +50,7 @@
 
     </mongo:repositories>
     <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-        <constructor-arg ref="mongo"/>
+        <constructor-arg ref="mongo-client"/>
         <constructor-arg name="databaseName" value="Canteen"/>
 
     </bean>

@@ -5,6 +5,7 @@ import Repositories.itemRepostory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +38,17 @@ public class viewMenu {
         Item item = repository.findById(request.getParameter("id"));
         item.setToday(Boolean.valueOf(request.getParameter("checked")));
         repository.save(item);
+    }
+
+    @RequestMapping(value = "/itemremove", method = RequestMethod.POST)
+    public void remove(HttpServletRequest request, HttpServletResponse response) {
+
+        Item item = repository.findById(request.getParameter("id"));
+
+        if (item != null) {
+            repository.delete(item);
+        }
+
     }
 
 

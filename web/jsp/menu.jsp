@@ -36,6 +36,7 @@
             width: 250px;
             overflow: hidden;
         }
+
         .crop img {
             height: auto;
             width: 250px;
@@ -65,7 +66,8 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a style="color:white" class="navbar-brand" href="/menu"><sec:authentication property="principal.username" /></a>
+            <a style="color:white" class="navbar-brand" href="/menu"><sec:authentication
+                    property="principal.username"/></a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -96,39 +98,39 @@
                         <a style="color: white" href="/alltimestats">Statistics</a>
                     </li>
                 </sec:authorize>
-<sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
-    <li>
-        <a style="color: white" href="/register">Add User</a>
-    </li>
-    <li>
-        <a style="color: white" href="/factoryhistory">Factory History</a>
-    </li>
-    <li>
-        <a style="color: white" href="/alltimestats">Statistics</a>
-    </li>
-</sec:authorize>
-<sec:authorize access="hasRole('ROLE_LINDA') and isAuthenticated()">
-    <li>
-        <a style="color: white" href="/balance">Change Balance</a>
-    </li>
-    <li>
-        <a style="color: white" href="/factoryhistory">Factory History</a>
+                <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                    <li>
+                        <a style="color: white" href="/register">Add User</a>
+                    </li>
+                    <li>
+                        <a style="color: white" href="/factoryhistory">Factory History</a>
+                    </li>
+                    <li>
+                        <a style="color: white" href="/alltimestats">Statistics</a>
+                    </li>
+                </sec:authorize>
+                <sec:authorize access="hasRole('ROLE_LINDA') and isAuthenticated()">
+                    <li>
+                        <a style="color: white" href="/balance">Change Balance</a>
+                    </li>
+                    <li>
+                        <a style="color: white" href="/factoryhistory">Factory History</a>
 
-    </li>
+                    </li>
 
-    <li>
-        <a style="color: white" href="/totalspent">Total Spent</a>
+                    <li>
+                        <a style="color: white" href="/totalspent">Total Spent</a>
 
-    </li>
+                    </li>
 
-    <li>
-        <a style="color: white" href="/alltimestats">Statistics</a>
-    </li>
-</sec:authorize>
+                    <li>
+                        <a style="color: white" href="/alltimestats">Statistics</a>
+                    </li>
+                </sec:authorize>
                 <li>
                     <a style="color: white" href="/logout">Logout</a>
                 </li>
-</ul>
+            </ul>
         </div>
         <!-- /.navbar-collapse -->
     </div>
@@ -163,7 +165,7 @@
 
     <!-- Projects Row -->
     <div class="row">
-        <div class="col-md-3 portfolio-item" >
+        <div class="col-md-3 portfolio-item">
             <a href="/tea" id="tea">
                 <img class="crop img-responsive" src="/assets/images%20for%20canteen/sandwich.png" alt="">
             </a>
@@ -209,12 +211,11 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"></button>
 
-                    <h4 class="modal-title">Balance of <sec:authentication property="principal.username" /></h4>
+                    <h4 class="modal-title">Balance of <sec:authentication property="principal.username"/></h4>
                 </div>
                 <div class="modal-body">
 
                     <h1>Balance: ${balance}</h1>
-
 
 
                 </div>
@@ -232,7 +233,7 @@
     <!-- /.row -->
 
     <hr>
-<input type="hidden" id="timeLunch" value="${timeLunch}">
+    <input type="hidden" id="timeLunch" value="${timeLunch}">
     <input type="hidden" id="timeTea" value="${timeTea}">
 
 </div>
@@ -249,11 +250,10 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username"/>" == "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" == "John&#32;Pelucci") {
+                    if ("<sec:authentication property="principal.username"/>" == "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" == "John&#32;Pelucci" && "<sec:authentication property="principal.username"/>" == "Sanjay&#32;Sookdeo") {
 
 
-                    }
-                    else{
+                    } else {
                         document.getElementById("standard").className = "disabled";
                         document.getElementById("standardtext").className = "disabled";
                         $('.disabled').click(function (e) {
@@ -270,7 +270,7 @@
             heading: 'LunchCountDown',
             callbacks: {
                 stop: function () {
-                    if ("<sec:authentication property="principal.username"/>" != "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" != "Guest1" && "<sec:authentication property="principal.username"/>" != "Guest2" && "<sec:authentication property="principal.username"/>" != "Guest3" && "<sec:authentication property="principal.username"/>" != "John&#32;Pelucci") {
+                    if ("<sec:authentication property="principal.username"/>" != "Ronny&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Russell&#32;Gwynn" && "<sec:authentication property="principal.username"/>" != "Guest1" && "<sec:authentication property="principal.username"/>" != "Guest2" && "<sec:authentication property="principal.username"/>" != "Guest3" && "<sec:authentication property="principal.username"/>" != "John&#32;Pelucci" && "<sec:authentication property="principal.username"/>" != "Sanjay&#32;Sookdeo") {
 
                         document.getElementById("tea").className = "disabled";
                         document.getElementById("lunch").className = "disabled";
@@ -281,9 +281,7 @@
                         $('.disabled').click(function (e) {
                             e.preventDefault();
                         });
-                    }
-                    else
-                    {
+                    } else {
 
                     }
                 }
@@ -291,16 +289,15 @@
         });
 
 
-
-            clock2.setTime(Number(document.getElementById("timeTea").value)-1);
-            clock.setTime(Number(document.getElementById("timeLunch").value)-1);
+        clock2.setTime(Number(document.getElementById("timeTea").value) - 1);
+        clock.setTime(Number(document.getElementById("timeLunch").value) - 1);
 
         clock2.setCountdown(true);
         clock2.start();
 
         clock.setCountdown(true);
         clock.start();
-        if("<sec:authentication property="principal.username" />" !="Guest") {
+        if ("<sec:authentication property="principal.username" />" != "Guest") {
             $("#myModal").modal();
         }
     });
