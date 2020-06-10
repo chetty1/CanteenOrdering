@@ -115,12 +115,13 @@ public class ordersController {
 
         System.out.println(tran.getQuantity());
 
-        Item item = new Item(tran.getFood().getName() + "-Order Cancelled", "Order Cancelled", Integer.toString(tran.getQuantity() * Integer.parseInt(tran.getFood().getPrice())), "", "", "", false);
+        Item item = new Item(tran.getFood().getName() + "-Order Cancelled", "Order Cancelled", Double.toString(tran.getQuantity() * Double.parseDouble(tran.getFood().getPrice())), "", "", "", false);
 
         Staff staff = userRepo.findByUsername(tran.getUser().getUsername());
-        int balancebefore = staff.getBalance();
+         double   balancebefore = staff.getBalance();
+
         repo.delete(tran);
-        int balanceafter = (tran.getQuantity() * Integer.parseInt(tran.getFood().getPrice())) + balancebefore;
+        double balanceafter = (tran.getQuantity() * Double.parseDouble(tran.getFood().getPrice())) + balancebefore;
         staff.setBalance(balanceafter);
         userRepo.save(staff);
         Tranaction cancel = new Tranaction(item, staff, "cancelorder", 1, true);

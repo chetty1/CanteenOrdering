@@ -116,7 +116,7 @@
                     <label class="control-label col-sm-3">Price</label>
                     <div class="col-md-5 col-sm-8">
                         <div class="input-group">
-                            <input type="number" class="form-control" name="mem_name" id="price" value="">
+                            <input type="number" class="form-control" name="mem_name" step="0.01" id="price" value="">
 
                         </div>
                     </div>

@@ -46,7 +46,7 @@ public class checkoutController {
     ArrayList<Tranaction> quantity;
     ArrayList<Tranaction> orders;
 
-    int total;
+    double total;
     boolean checkout = false;
 
     @RequestMapping(value = "/checkout")
@@ -87,7 +87,7 @@ public class checkoutController {
         }
 
         for (Tranaction tranaction : quantity) {
-            total = total + (Integer.parseInt(tranaction.getFood().getPrice()) * tranaction.getQuantity());
+            total = total + (Double.parseDouble(tranaction.getFood().getPrice()) * tranaction.getQuantity());
 
         }
 
@@ -120,9 +120,9 @@ public class checkoutController {
     @ResponseBody
     boolean clickcheckout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Staff staff = repository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        int before = staff.getBalance();
+        double before = staff.getBalance();
         orders = new ArrayList<>();
-        int tot = 0;
+        double tot = 0;
         final ArrayList<Tranaction> list = (ArrayList<Tranaction>) transrepo.findAllByUserAndDate(staff, new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
 
         for (int i = 0; i < list.size(); i++) {
@@ -135,7 +135,7 @@ public class checkoutController {
 
 
         for (int j = 0; j < list.size(); j++) {
-            tot = tot + (Integer.parseInt(list.get(j).getFood().getPrice()) * list.get(j).getQuantity());
+            tot = tot + (Double.parseDouble(list.get(j).getFood().getPrice()) * list.get(j).getQuantity());
         }
         if ((before - tot) > 0) {
 

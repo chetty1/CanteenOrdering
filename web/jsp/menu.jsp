@@ -94,9 +94,7 @@
                     <li>
                         <a style="color: white" href="/viewmenu">View Menu</a>
                     </li>
-                    <li>
-                        <a style="color: white" href="/alltimestats">Statistics</a>
-                    </li>
+
                 </sec:authorize>
                 <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
                     <li>

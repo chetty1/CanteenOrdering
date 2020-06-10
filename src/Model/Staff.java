@@ -19,11 +19,11 @@ public Staff(){
     public String name;
     public String username;
     public String password;
-    public int balance;
+    public double balance;
     public ArrayList<String> role;
 
 
-    public Staff(String name, String username, String password, ArrayList<String> role, int balance) {
+    public Staff(String name, String username, String password, ArrayList<String> role, double balance) {
         this.name = name;
         this.username = username;
         this.password = password;
@@ -47,11 +47,11 @@ public Staff(){
         return"username,"+username+",balance,"+balance;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

@@ -32,7 +32,7 @@ public class TotalSpentController {
     public ModelAndView View(@RequestParam("before") String before, @RequestParam("after") String after) throws ParseException {
 
         ModelAndView view = new ModelAndView("TotalSpent");
-        Integer count = 0;
+        Double count = 0.0;
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<Tranaction> dateComp = new ArrayList<Tranaction>();
 
@@ -76,14 +76,14 @@ public class TotalSpentController {
     }
 */
 
-        TreeMap<String, Integer> userMap = new TreeMap<>();
+        TreeMap<String, Double> userMap = new TreeMap<>();
         for (int i = 0; i < dateComp.size(); i++) {
             Tranaction tran = dateComp.get(i);
             count = userMap.get(dateComp.get(i).getUser().getName());
             if (count == null) {
-                count = Integer.parseInt(tran.getFood().getPrice()) * tran.getQuantity();
+                count = Double.parseDouble(tran.getFood().getPrice()) * tran.getQuantity();
             } else {
-                count = count + Integer.parseInt(tran.getFood().getPrice()) * tran.getQuantity();
+                count = count + Double.parseDouble(tran.getFood().getPrice()) * tran.getQuantity();
             }
 
             userMap.put(dateComp.get(i).getUser().getName(), count);
@@ -91,9 +91,9 @@ public class TotalSpentController {
 
         }
 
-        LinkedHashMap<String, Integer> totalMap = new LinkedHashMap(userMap);
-        int total = 0;
-        for (Map.Entry<String, Integer> entry : totalMap.entrySet()) {
+        LinkedHashMap<String, Double> totalMap = new LinkedHashMap(userMap);
+        double total = 0.0;
+        for (Map.Entry<String, Double> entry : totalMap.entrySet()) {
 
             total = total + entry.getValue();
 
