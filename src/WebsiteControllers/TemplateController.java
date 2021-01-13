@@ -80,9 +80,9 @@ public class TemplateController {
         view.addObject("largeChips", "large");
         view.addObject("name", "Large");
         view.addObject("largePriceid", "priceInputLarge");
-        view.addObject("largePrice", "8");
+        view.addObject("largePrice", repo.findByName("Large Chips").getPrice());
         view.addObject("name2", "Small");
-        view.addObject("smallPrice", "4");
+        view.addObject("smallPrice", repo.findByName("Small Chips").getPrice());
         view.addObject("smallChips", "small");
         view.addObject("smallPriceid", "priceInputSmall");
         view.addObject("balance",staff.getBalance());
@@ -132,9 +132,9 @@ public class TemplateController {
         view.addObject("largeChips", "large");
         view.addObject("name", "Large");
         view.addObject("largePriceid", "priceInputLarge");
-        view.addObject("largePrice", "8");
+        view.addObject("largePrice", repo.findByName("Large Chips").getPrice());
         view.addObject("name2", "Small");
-        view.addObject("smallPrice", "4");
+        view.addObject("smallPrice", repo.findByName("Small Chips").getPrice());
         view.addObject("smallChips", "small");
         view.addObject("smallPriceid", "priceInputSmall");
         view.addObject("takeaway", false);
@@ -181,9 +181,9 @@ public class TemplateController {
         view.addObject("largeChips", "large");
         view.addObject("name", "Large");
         view.addObject("largePriceid", "priceInputLarge");
-        view.addObject("largePrice", "8");
+        view.addObject("largePrice", repo.findByName("Large Chips").getPrice());
         view.addObject("name2", "Small");
-        view.addObject("smallPrice", "4");
+        view.addObject("smallPrice", repo.findByName("Small Chips").getPrice());
         view.addObject("smallChips", "small");
         view.addObject("smallPriceid", "priceInputSmall");
         view.addObject("takeaway", false);

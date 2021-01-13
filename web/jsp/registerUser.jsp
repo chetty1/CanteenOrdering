@@ -276,7 +276,7 @@
 
         var client;
 
-        client = new Paho.MQTT.Client("192.168.0.156", Number(8900), Math.round(Math.random() * 1000).toString());
+        client = new Paho.MQTT.Client("192.168.0.133", Number(8900), Math.round(Math.random() * 1000).toString());
         // set callback handlers
         client.onConnectionLost = onConnectionLost;
         client.onMessageArrived = onMessageArrived;
