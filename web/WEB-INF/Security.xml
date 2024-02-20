@@ -48,13 +48,15 @@ http://www.springframework.org/schema/websocket/spring-websocket.xsd">
     <beans:bean id="successHandler" class="Security.successHandler"/>
 
 
-    <authentication-manager alias="authenticationManager">
+    <authentication-manager alias="authenticationManager" erase-credentials="false">
 
         <authentication-provider user-service-ref="mongoUserDetailsService">
-            <password-encoder hash="plaintext"/>
+            <password-encoder ref="bcryptEncoder" />
         </authentication-provider>
     </authentication-manager>
 
     <beans:bean id="mongoUserDetailsService" class="Security.MongoUserDetailService"/>
 
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" >
+    </beans:bean>
 </beans:beans>

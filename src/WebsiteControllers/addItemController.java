@@ -4,12 +4,14 @@ import Model.Item;
 import Repositories.itemRepostory;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Example;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.gridfs.GridFsResource;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -74,13 +76,14 @@ public class addItemController {
 
    @RequestMapping(value = "/{name:.+}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<InputStreamResource> getImage(@PathVariable String name) {
-        GridFSDBFile gridFsFile = template.findOne(new Query(Criteria.where("filename").is(name)));
+    public ResponseEntity<InputStreamResource> getImage(@PathVariable String name) throws IOException {
 
+        GridFSFile gridFsFile = template.findOne(new Query(Criteria.where("filename").is(name)));
+       GridFsResource resource = template.getResource(gridFsFile.getFilename());
         return ResponseEntity.ok()
                 .contentLength(gridFsFile.getLength())
                 .contentType(MediaType.parseMediaType(gridFsFile.getContentType()))
-                .body(new InputStreamResource(gridFsFile.getInputStream()));
+                .body(new InputStreamResource(resource.getInputStream()));
     }
 
 

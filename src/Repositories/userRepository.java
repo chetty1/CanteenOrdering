@@ -3,6 +3,7 @@ package Repositories;
 import Model.Staff;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 /**
@@ -20,5 +21,8 @@ public interface userRepository extends MongoRepository<Staff, String> {
 
     Staff findByIdLike(String id);
 
-    Staff findById(String id);
+    default Staff findByIdOrError(String id) {
+        return findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
 }

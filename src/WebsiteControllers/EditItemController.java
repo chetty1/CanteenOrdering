@@ -4,6 +4,7 @@ import Model.Item;
 import Repositories.itemRepostory;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.client.gridfs.model.GridFSFile;
 import com.mongodb.gridfs.GridFSDBFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -35,7 +36,7 @@ public class EditItemController {
     @RequestMapping(value = "{id}/edititem",method = RequestMethod.GET)
     public ModelAndView view(@PathVariable String id) {
 
-        item = repostory.findById(id);
+        item = repostory.findByIdOrError(id);
         System.out.print(item);
         ModelAndView view = new ModelAndView("editItem");
         view.addObject("name", item.getName());
@@ -63,7 +64,7 @@ view.addObject("id",id);
         item.setTime(time);
         item.setType(sandwich);
         item.setDesc(desc);
-        GridFSDBFile gridFsFile = template.findOne(new Query(Criteria.where("filename").is(item.getPicName())));
+        GridFSFile gridFsFile = template.findOne(new Query(Criteria.where("filename").is(item.getPicName())));
         System.out.println(multipartFile.getOriginalFilename());
 
         if (gridFsFile==null&&!multipartFile.isEmpty()){

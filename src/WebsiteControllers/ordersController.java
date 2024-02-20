@@ -111,7 +111,7 @@ public class ordersController {
     @RequestMapping(value = "/cancelorders", method = RequestMethod.POST)
     public void Cancel(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
-        Tranaction tran = repo.findById(id);
+        Tranaction tran = repo.findByIdOrError(id);
 
         System.out.println(tran.getQuantity());
 

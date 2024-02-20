@@ -35,7 +35,7 @@ public class viewMenu {
 
     @RequestMapping(value = "/check")
     public void check(HttpServletRequest request, HttpServletResponse response) {
-        Item item = repository.findById(request.getParameter("id"));
+        Item item = repository.findByIdOrError(request.getParameter("id"));
         item.setToday(Boolean.valueOf(request.getParameter("checked")));
         repository.save(item);
     }
@@ -43,7 +43,7 @@ public class viewMenu {
     @RequestMapping(value = "/itemremove", method = RequestMethod.POST)
     public void remove(HttpServletRequest request, HttpServletResponse response) {
 
-        Item item = repository.findById(request.getParameter("id"));
+        Item item = repository.findByIdOrError(request.getParameter("id"));
 
         if (item != null) {
             repository.delete(item);

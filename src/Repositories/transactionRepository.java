@@ -5,6 +5,7 @@ import Model.Tranaction;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 
@@ -13,8 +14,9 @@ import java.util.List;
  */
 public interface transactionRepository extends MongoRepository<Tranaction, String> {
 
-    Tranaction findById(String Id);
-
+    default Tranaction findByIdOrError(String id) {
+        return findById(id).orElseThrow(EntityNotFoundException::new);
+    }
     @Query("{ 'user.username' : ?0 }")
     List<Tranaction> findAllByUser(String name);
 

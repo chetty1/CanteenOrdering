@@ -52,7 +52,7 @@ public class balanceController {
         String id = request.getParameter("id");
           String amount=request.getParameter("amount");
 
-         Staff staff=  repository.findById(id);
+         Staff staff=  repository.findByIdOrError(id);
         staff.setBalance(staff.getBalance()+Integer.parseInt(amount));
 
         SimpleDateFormat date = new SimpleDateFormat("HHss");
@@ -71,7 +71,7 @@ public class balanceController {
         for(int i=0;i<list.size();i++){
             list.get(i).setBalance(500);
         }
-        repository.save(list);
+        repository.saveAll(list);
 
     }
 }

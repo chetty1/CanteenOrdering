@@ -70,7 +70,7 @@ public class checkoutController {
 
                 }
                 if (count != null) {
-                    transrepo.delete(temp.getId());
+                    transrepo.deleteById(temp.getId());
                 }
             }
         }
@@ -107,10 +107,10 @@ public class checkoutController {
         String raw = request.getParameter("Id");
         String id = raw.substring(6);
 
-        Tranaction tran = transrepo.findById(id);
+        Tranaction tran = transrepo.findByIdOrError(id);
         System.out.println(tran);
 
-        transrepo.delete(tran.getId());
+        transrepo.deleteById(tran.getId());
         return true;
     }
 
@@ -150,7 +150,7 @@ public class checkoutController {
                 tran.setOrded(true);
 
             }
-            transrepo.save(list);
+            transrepo.saveAll(list);
 
             System.out.println(list);
             orders.clear();
@@ -216,7 +216,7 @@ public class checkoutController {
             item = repo.findByName("Small Chips");
 
         } else {
-            item = repo.findById(request.getParameter("Id"));
+            item = repo.findByIdOrError(request.getParameter("Id"));
         }
 
         Staff staff = repository.findByUsername(username);
